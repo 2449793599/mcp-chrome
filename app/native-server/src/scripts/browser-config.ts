@@ -201,10 +201,13 @@ export function getBrowserConfig(browser: BrowserType): BrowserConfig {
  * Detect installed browsers on the system
  */
 export function detectInstalledBrowsers(): BrowserType[] {
+
     const detectedBrowsers: BrowserType[] = [];
+
     const platform = os.platform();
 
     if (platform === 'win32') {
+
         // Check Windows registry for installed browsers
         const browsers: Array<{ type: BrowserType; registryPath: string }> = [
             {type: BrowserType.CHROME, registryPath: 'HKLM\\SOFTWARE\\Google\\Chrome'},
@@ -212,14 +215,21 @@ export function detectInstalledBrowsers(): BrowserType[] {
         ];
 
         for (const browser of browsers) {
+
             try {
+
                 execSync(`reg query "${browser.registryPath}" 2>nul`, {stdio: 'pipe'});
+
                 detectedBrowsers.push(browser.type);
+
             } catch {
                 // Browser not installed
             }
+
         }
+
     } else if (platform === 'darwin') {
+
         // Check macOS Applications folder
         const browsers: Array<{ type: BrowserType; appPath: string }> = [
             {type: BrowserType.CHROME, appPath: '/Applications/Google Chrome.app'},
@@ -227,11 +237,15 @@ export function detectInstalledBrowsers(): BrowserType[] {
         ];
 
         for (const browser of browsers) {
+
             if (fs.existsSync(browser.appPath)) {
                 detectedBrowsers.push(browser.type);
             }
+
         }
+
     } else {
+
         // Check Linux paths using which command
         const browsers: Array<{ type: BrowserType; commands: string[] }> = [
             {type: BrowserType.CHROME, commands: ['google-chrome', 'google-chrome-stable']},
@@ -239,19 +253,29 @@ export function detectInstalledBrowsers(): BrowserType[] {
         ];
 
         for (const browser of browsers) {
+
             for (const cmd of browser.commands) {
+
                 try {
+
                     execSync(`which ${cmd} 2>/dev/null`, {stdio: 'pipe'});
+
                     detectedBrowsers.push(browser.type);
+
                     break; // Found one command, no need to check others
+
                 } catch {
                     // Command not found
                 }
+
             }
+
         }
+
     }
 
     return detectedBrowsers;
+
 }
 
 /**
@@ -265,6 +289,9 @@ export function getAllBrowserConfigs(): BrowserConfig[] {
  * Parse browser type from string
  */
 export function parseBrowserType(browserStr: string): BrowserType | undefined {
+
     const normalized = browserStr.toLowerCase();
+
     return Object.values(BrowserType).find((type) => type === normalized);
+
 }

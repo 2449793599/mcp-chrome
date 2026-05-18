@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import {program} from 'commander';
+
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -13,14 +14,17 @@ import {
 } from './scripts/utils';
 
 import {BrowserType, parseBrowserType, detectInstalledBrowsers} from './scripts/browser-config';
+
 import {runDoctor} from './scripts/doctor';
 import {runReport} from './scripts/report';
 
+// *********************************************************************************************************************
 program
     .version(require('../package.json').version)
     .description('Mcp Chrome Bridge - Local service for communicating with Chrome extension');
 
 
+// *********************************************************************************************************************
 // Register Native Messaging host
 program
     .command('register')
@@ -86,6 +90,7 @@ program
                 }
 
             }
+
             // If neither option specified, tryRegisterUserLevelHost will detect browsers
 
             // Detect if running with root/administrator privileges
@@ -176,6 +181,7 @@ program
 
     });
 
+// *********************************************************************************************************************
 // Fix execution permissions
 program
     .command('fix-permissions')
@@ -200,6 +206,7 @@ program
 
     });
 
+// *********************************************************************************************************************
 // Update port in stdio-config.json
 program
     .command('update-port <port>')
@@ -253,6 +260,7 @@ program
 
     });
 
+// *********************************************************************************************************************
 // Diagnose installation and environment issues
 program
     .command('doctor')
@@ -282,6 +290,7 @@ program
 
     });
 
+// *********************************************************************************************************************
 // Export diagnostic report for GitHub Issues
 program
     .command('report')
@@ -319,9 +328,27 @@ program
 
     });
 
+// *********************************************************************************************************************
 program.parse(process.argv);
 
-// If no command provided, show help
+// 如果没有提供命令则显示帮助
 if (!process.argv.slice(2).length) {
     program.outputHelp();
 }
+
+// $ mcp-chrome-bridge
+// Usage: cli [options] [command]
+//
+// Mcp Chrome Bridge - Local service for communicating with Chrome extension
+//
+// Options:
+//     -V, --version       output the version number
+//     -h, --help          display help for command
+//
+// Commands:
+//      register [options]  Register Native Messaging host
+//      fix-permissions     Fix execution permissions for native host files
+//      update-port <port>  Update the port number in stdio-config.json
+//      doctor [options]    Diagnose installation and environment issues
+//      report [options]    Export a diagnostic report for GitHub Issues
+//      help [command]      display help for command
