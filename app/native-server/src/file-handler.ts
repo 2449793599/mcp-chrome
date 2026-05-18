@@ -13,6 +13,7 @@ export class FileHandler {
   constructor() {
     // Create a temp directory for file operations
     this.tempDir = path.join(os.tmpdir(), 'chrome-mcp-uploads');
+
     if (!fs.existsSync(this.tempDir)) {
       fs.mkdirSync(this.tempDir, { recursive: true });
     }
@@ -34,10 +35,12 @@ export class FileHandler {
           } else if (filePath) {
             return await this.verifyFile(filePath);
           }
+
           break;
 
         case 'readBase64File': {
           if (!filePath) return { success: false, error: 'filePath is required' };
+
           return await this.readBase64File(filePath);
         }
 
@@ -46,13 +49,17 @@ export class FileHandler {
 
         case 'analyzeTrace': {
           const targetPath = traceFilePath || filePath;
+
           if (!targetPath) {
             return { success: false, error: 'traceFilePath is required' };
           }
+
           try {
             // With tsconfig moduleResolution=NodeNext, relative ESM imports need explicit .js extension
             const { analyzeTraceFile } = await import('./trace-analyzer.js');
+
             const res = await analyzeTraceFile(targetPath, insightName);
+
             return { success: true, ...res };
           } catch (e: any) {
             return { success: false, error: e?.message || String(e) };
@@ -79,12 +86,14 @@ export class FileHandler {
   private async downloadFile(fileUrl: string, fileName?: string): Promise<any> {
     try {
       const response = await fetch(fileUrl);
+
       if (!response.ok) {
         throw new Error(`Failed to download file: ${response.statusText}`);
       }
 
       // Generate filename if not provided
       const finalFileName = fileName || this.generateFileName(fileUrl);
+
       const filePath = path.join(this.tempDir, finalFileName);
 
       // Get the file buffer
@@ -117,6 +126,7 @@ export class FileHandler {
 
       // Generate filename if not provided
       const finalFileName = fileName || `upload-${Date.now()}.bin`;
+
       const filePath = path.join(this.tempDir, finalFileName);
 
       // Save to file
@@ -173,12 +183,17 @@ export class FileHandler {
       if (!fs.existsSync(filePath)) {
         throw new Error(`File does not exist: ${filePath}`);
       }
+
       const stats = fs.statSync(filePath);
+
       if (!stats.isFile()) {
         throw new Error(`Path is not a file: ${filePath}`);
       }
+
       const buf = fs.readFileSync(filePath);
+
       const base64 = buf.toString('base64');
+
       return {
         success: true,
         filePath,
@@ -230,13 +245,18 @@ export class FileHandler {
     if (url) {
       try {
         const urlObj = new URL(url);
+
         const pathname = urlObj.pathname;
+
         const basename = path.basename(pathname);
+
         if (basename && basename !== '/') {
           // Add random suffix to avoid collisions
           const ext = path.extname(basename);
           const name = path.basename(basename, ext);
+
           const randomSuffix = crypto.randomBytes(4).toString('hex');
+
           return `${name}-${randomSuffix}${ext}`;
         }
       } catch {
@@ -254,14 +274,19 @@ export class FileHandler {
   cleanupOldFiles(): void {
     try {
       const now = Date.now();
+
       const oneHour = 60 * 60 * 1000;
 
       const files = fs.readdirSync(this.tempDir);
+
       for (const file of files) {
         const filePath = path.join(this.tempDir, file);
+
         const stats = fs.statSync(filePath);
+
         if (now - stats.mtimeMs > oneHour) {
           fs.unlinkSync(filePath);
+
           // Use stderr to avoid polluting stdout (Native Messaging protocol)
           console.error(`Cleaned up old temp file: ${file}`);
         }

@@ -17,7 +17,8 @@
     "lint:fix": "eslint 'src/**/*.{js,ts}' --fix",
     "format": "prettier --write 'src/**/*.{js,ts,json}'",
     "register:dev": "node dist/scripts/register-dev.js",
-    "postinstall": "node dist/scripts/postinstall.js"
+    "prepare": "ts-node src/scripts/postinstall.ts",
+    "postinstall": "node -e \"const fs=require('fs'); if(fs.existsSync('dist/scripts/postinstall.js')){require('./dist/scripts/postinstall.js')} else {console.log('Skipping postinstall: dist not built yet. Run pnpm build first, or use pnpm prepare.');process.exit(0)}\""
   },
   "files": [
     "dist",
