@@ -8,12 +8,12 @@
  * - Configurable path via environment variable
  */
 import Database from 'better-sqlite3';
-import { drizzle, BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
-import { sql } from 'drizzle-orm';
+import {drizzle, BetterSQLite3Database} from 'drizzle-orm/better-sqlite3';
+import {sql} from 'drizzle-orm';
 import * as schema from './schema';
-import { getAgentDataDir } from '../storage';
+import {getAgentDataDir} from '../storage';
 import path from 'node:path';
-import { existsSync, mkdirSync } from 'node:fs';
+import {existsSync, mkdirSync} from 'node:fs';
 
 // ============================================================
 // Types
@@ -37,11 +37,11 @@ let sqliteInstance: Database.Database | null = null;
  * Environment: CHROME_MCP_AGENT_DB_FILE overrides the default path.
  */
 export function getDatabasePath(): string {
-  const envPath = process.env.CHROME_MCP_AGENT_DB_FILE;
-  if (envPath && envPath.trim()) {
-    return path.resolve(envPath.trim());
-  }
-  return path.join(getAgentDataDir(), 'agent.db');
+    const envPath = process.env.CHROME_MCP_AGENT_DB_FILE;
+    if (envPath && envPath.trim()) {
+        return path.resolve(envPath.trim());
+    }
+    return path.join(getAgentDataDir(), 'agent.db');
 }
 
 // ============================================================
@@ -126,8 +126,8 @@ const MIGRATION_SQL = `
  * Check if a column exists in a table.
  */
 function columnExists(sqlite: Database.Database, tableName: string, columnName: string): boolean {
-  const result = sqlite.prepare(`PRAGMA table_info(${tableName})`).all() as Array<{ name: string }>;
-  return result.some((col) => col.name === columnName);
+    const result = sqlite.prepare(`PRAGMA table_info(${tableName})`).all() as Array<{ name: string }>;
+    return result.some((col) => col.name === columnName);
 }
 
 /**
@@ -135,20 +135,20 @@ function columnExists(sqlite: Database.Database, tableName: string, columnName: 
  * Adds new columns that may be missing in older database versions.
  */
 function runMigrations(sqlite: Database.Database): void {
-  // Migration 1: Add active_claude_session_id column to projects table
-  if (!columnExists(sqlite, 'projects', 'active_claude_session_id')) {
-    sqlite.exec('ALTER TABLE projects ADD COLUMN active_claude_session_id TEXT');
-  }
+    // Migration 1: Add active_claude_session_id column to projects table
+    if (!columnExists(sqlite, 'projects', 'active_claude_session_id')) {
+        sqlite.exec('ALTER TABLE projects ADD COLUMN active_claude_session_id TEXT');
+    }
 
-  // Migration 2: Add use_ccr column to projects table
-  if (!columnExists(sqlite, 'projects', 'use_ccr')) {
-    sqlite.exec('ALTER TABLE projects ADD COLUMN use_ccr TEXT');
-  }
+    // Migration 2: Add use_ccr column to projects table
+    if (!columnExists(sqlite, 'projects', 'use_ccr')) {
+        sqlite.exec('ALTER TABLE projects ADD COLUMN use_ccr TEXT');
+    }
 
-  // Migration 3: Add enable_chrome_mcp column to projects table (default enabled)
-  if (!columnExists(sqlite, 'projects', 'enable_chrome_mcp')) {
-    sqlite.exec("ALTER TABLE projects ADD COLUMN enable_chrome_mcp TEXT NOT NULL DEFAULT '1'");
-  }
+    // Migration 3: Add enable_chrome_mcp column to projects table (default enabled)
+    if (!columnExists(sqlite, 'projects', 'enable_chrome_mcp')) {
+        sqlite.exec("ALTER TABLE projects ADD COLUMN enable_chrome_mcp TEXT NOT NULL DEFAULT '1'");
+    }
 }
 
 /**
@@ -157,18 +157,18 @@ function runMigrations(sqlite: Database.Database): void {
  * Also runs migrations for existing databases.
  */
 function initializeSchema(sqlite: Database.Database): void {
-  sqlite.exec(CREATE_TABLES_SQL);
-  runMigrations(sqlite);
+    sqlite.exec(CREATE_TABLES_SQL);
+    runMigrations(sqlite);
 }
 
 /**
  * Ensure the data directory exists.
  */
 function ensureDataDir(): void {
-  const dataDir = getAgentDataDir();
-  if (!existsSync(dataDir)) {
-    mkdirSync(dataDir, { recursive: true });
-  }
+    const dataDir = getAgentDataDir();
+    if (!existsSync(dataDir)) {
+        mkdirSync(dataDir, {recursive: true});
+    }
 }
 
 // ============================================================
@@ -180,26 +180,26 @@ function ensureDataDir(): void {
  * Lazily initializes the connection and schema on first call.
  */
 export function getDb(): DrizzleDB {
-  if (dbInstance) {
+    if (dbInstance) {
+        return dbInstance;
+    }
+
+    ensureDataDir();
+    const dbPath = getDatabasePath();
+
+    // Create SQLite connection
+    sqliteInstance = new Database(dbPath);
+
+    // Enable WAL mode for better concurrent read performance
+    sqliteInstance.pragma('journal_mode = WAL');
+
+    // Initialize schema
+    initializeSchema(sqliteInstance);
+
+    // Create Drizzle instance
+    dbInstance = drizzle(sqliteInstance, {schema});
+
     return dbInstance;
-  }
-
-  ensureDataDir();
-  const dbPath = getDatabasePath();
-
-  // Create SQLite connection
-  sqliteInstance = new Database(dbPath);
-
-  // Enable WAL mode for better concurrent read performance
-  sqliteInstance.pragma('journal_mode = WAL');
-
-  // Initialize schema
-  initializeSchema(sqliteInstance);
-
-  // Create Drizzle instance
-  dbInstance = drizzle(sqliteInstance, { schema });
-
-  return dbInstance;
 }
 
 /**
@@ -207,26 +207,26 @@ export function getDb(): DrizzleDB {
  * Should be called on graceful shutdown.
  */
 export function closeDb(): void {
-  if (sqliteInstance) {
-    sqliteInstance.close();
-    sqliteInstance = null;
-    dbInstance = null;
-  }
+    if (sqliteInstance) {
+        sqliteInstance.close();
+        sqliteInstance = null;
+        dbInstance = null;
+    }
 }
 
 /**
  * Check if database is initialized.
  */
 export function isDbInitialized(): boolean {
-  return dbInstance !== null;
+    return dbInstance !== null;
 }
 
 /**
  * Execute raw SQL (for advanced use cases).
  */
 export function execRawSql(sqlStr: string): void {
-  if (!sqliteInstance) {
-    getDb(); // Initialize if not already
-  }
-  sqliteInstance!.exec(sqlStr);
+    if (!sqliteInstance) {
+        getDb(); // Initialize if not already
+    }
+    sqliteInstance!.exec(sqlStr);
 }

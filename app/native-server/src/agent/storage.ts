@@ -20,11 +20,11 @@ const DEFAULT_DATA_DIR = path.join(os.homedir(), '.chrome-mcp-agent');
  * - CHROME_MCP_AGENT_DATA_DIR: overrides the default base directory.
  */
 export function getAgentDataDir(): string {
-  const raw = process.env.CHROME_MCP_AGENT_DATA_DIR;
-  if (raw && raw.trim()) {
-    return path.resolve(raw.trim());
-  }
-  return DEFAULT_DATA_DIR;
+    const raw = process.env.CHROME_MCP_AGENT_DATA_DIR;
+    if (raw && raw.trim()) {
+        return path.resolve(raw.trim());
+    }
+    return DEFAULT_DATA_DIR;
 }
 
 /**
@@ -34,11 +34,11 @@ export function getAgentDataDir(): string {
  * - CHROME_MCP_AGENT_DB_FILE: overrides the default database path.
  */
 export function getDatabasePath(): string {
-  const raw = process.env.CHROME_MCP_AGENT_DB_FILE;
-  if (raw && raw.trim()) {
-    return path.resolve(raw.trim());
-  }
-  return path.join(getAgentDataDir(), 'agent.db');
+    const raw = process.env.CHROME_MCP_AGENT_DB_FILE;
+    if (raw && raw.trim()) {
+        return path.resolve(raw.trim());
+    }
+    return path.join(getAgentDataDir(), 'agent.db');
 }
 
 /**
@@ -50,19 +50,19 @@ export function getDatabasePath(): string {
  * - Windows: %USERPROFILE%\.chrome-mcp-agent\workspaces
  */
 export function getDefaultWorkspaceDir(): string {
-  return path.join(getAgentDataDir(), 'workspaces');
+    return path.join(getAgentDataDir(), 'workspaces');
 }
 
 /**
  * Generate a default project root path for a given project name.
  */
 export function getDefaultProjectRoot(projectName: string): string {
-  // Sanitize project name for use as directory name
-  const safeName = projectName
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9_-]/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
-  return path.join(getDefaultWorkspaceDir(), safeName || 'default-project');
+    // Sanitize project name for use as directory name
+    const safeName = projectName
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9_-]/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+    return path.join(getDefaultWorkspaceDir(), safeName || 'default-project');
 }
