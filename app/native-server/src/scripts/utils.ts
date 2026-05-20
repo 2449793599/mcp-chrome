@@ -325,7 +325,7 @@ export async function createManifestContent(): Promise<any> {
     return {
         name: HOST_NAME,
         description: DESCRIPTION,
-        path: mainPath, // Node.js可执行文件路径
+        path: mainPath, // NODE.JS可执行文件路径
         type: 'stdio',
         allowed_origins: [`chrome-extension://${EXTENSION_ID}/`],
     };
