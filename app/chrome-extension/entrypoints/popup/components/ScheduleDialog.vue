@@ -8,7 +8,7 @@
       <div class="rr-body">
         <div class="row">
           <label>启用</label>
-          <label class="chk"><input type="checkbox" v-model="enabled" />启用定时</label>
+          <label class="chk"><input type="checkbox" v-model="enabled"/>启用定时</label>
         </div>
         <div class="row">
           <label>类型</label>
@@ -20,15 +20,15 @@
         </div>
         <div class="row" v-if="type === 'interval'">
           <label>间隔(分钟)</label>
-          <input type="number" v-model.number="intervalMinutes" />
+          <input type="number" v-model.number="intervalMinutes"/>
         </div>
         <div class="row" v-if="type === 'daily'">
           <label>时间(HH:mm)</label>
-          <input v-model="dailyTime" placeholder="例如 09:30" />
+          <input v-model="dailyTime" placeholder="例如 09:30"/>
         </div>
         <div class="row" v-if="type === 'once'">
           <label>时间(ISO)</label>
-          <input v-model="onceAt" placeholder="例如 2025-10-05T10:00:00" />
+          <input v-model="onceAt" placeholder="例如 2025-10-05T10:00:00"/>
         </div>
         <div class="row">
           <label>参数(JSON)</label>
@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import {ref, watch} from 'vue';
 
 const props = defineProps<{ visible: boolean; flowId: string | null; schedules: any[] }>();
 const emit = defineEmits(['close', 'save', 'remove']);
@@ -70,17 +70,17 @@ const onceAt = ref('');
 const argsJson = ref('');
 
 watch(
-  () => props.visible,
-  (v) => {
-    if (v) {
-      enabled.value = true;
-      type.value = 'interval';
-      intervalMinutes.value = 30;
-      dailyTime.value = '09:00';
-      onceAt.value = '';
-      argsJson.value = '';
-    }
-  },
+    () => props.visible,
+    (v) => {
+      if (v) {
+        enabled.value = true;
+        type.value = 'interval';
+        intervalMinutes.value = 30;
+        dailyTime.value = '09:00';
+        onceAt.value = '';
+        argsJson.value = '';
+      }
+    },
 );
 
 function save() {
@@ -91,11 +91,11 @@ function save() {
     type: type.value,
     enabled: enabled.value,
     when:
-      type.value === 'interval'
-        ? String(intervalMinutes.value)
-        : type.value === 'daily'
-          ? dailyTime.value
-          : onceAt.value,
+        type.value === 'interval'
+            ? String(intervalMinutes.value)
+            : type.value === 'daily'
+                ? dailyTime.value
+                : onceAt.value,
     args: safeParse(argsJson.value),
   } as any;
   emit('save', schedule);
@@ -128,6 +128,7 @@ function describe(s: any) {
   align-items: center;
   justify-content: center;
 }
+
 .rr-dialog {
   background: #fff;
   border-radius: 8px;
@@ -137,6 +138,7 @@ function describe(s: any) {
   display: flex;
   flex-direction: column;
 }
+
 .rr-header {
   display: flex;
   justify-content: space-between;
@@ -144,9 +146,11 @@ function describe(s: any) {
   padding: 12px 16px;
   border-bottom: 1px solid #e5e7eb;
 }
+
 .rr-header .title {
   font-weight: 600;
 }
+
 .rr-header .close {
   border: none;
   background: #f3f4f6;
@@ -154,20 +158,24 @@ function describe(s: any) {
   padding: 4px 8px;
   cursor: pointer;
 }
+
 .rr-body {
   padding: 12px 16px;
   overflow: auto;
 }
+
 .row {
   display: flex;
   gap: 8px;
   align-items: center;
   margin: 6px 0;
 }
+
 .row > label {
   width: 120px;
   color: #374151;
 }
+
 .row > input,
 .row > textarea,
 .row > select {
@@ -176,14 +184,17 @@ function describe(s: any) {
   border-radius: 6px;
   padding: 6px 8px;
 }
+
 .row > textarea {
   min-height: 64px;
 }
+
 .chk {
   display: inline-flex;
   gap: 6px;
   align-items: center;
 }
+
 .sched-list .sched-row {
   display: flex;
   justify-content: space-between;
@@ -193,17 +204,21 @@ function describe(s: any) {
   border-radius: 6px;
   margin: 4px 0;
 }
+
 .badge {
   padding: 2px 6px;
   border-radius: 6px;
   background: #e5e7eb;
 }
+
 .badge.on {
   background: #dcfce7;
 }
+
 .badge.off {
   background: #fee2e2;
 }
+
 .small {
   font-size: 12px;
   padding: 4px 8px;
@@ -212,10 +227,12 @@ function describe(s: any) {
   border-radius: 6px;
   cursor: pointer;
 }
+
 .danger {
   background: #fee2e2;
   border-color: #fecaca;
 }
+
 .primary {
   background: #111;
   color: #fff;
@@ -224,6 +241,7 @@ function describe(s: any) {
   padding: 8px 16px;
   cursor: pointer;
 }
+
 .rr-footer {
   padding: 12px 16px;
   border-top: 1px solid #e5e7eb;

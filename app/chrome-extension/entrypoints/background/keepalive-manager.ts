@@ -9,8 +9,8 @@
  */
 
 import {
-  createOffscreenKeepaliveController,
-  type KeepaliveController,
+    createOffscreenKeepaliveController,
+    type KeepaliveController,
 } from './record-replay-v3/engine/keepalive/offscreen-keepalive';
 
 const LOG_PREFIX = '[KeepaliveManager]';
@@ -25,11 +25,11 @@ let controller: KeepaliveController | null = null;
  * Get or create the singleton keepalive controller.
  */
 function getController(): KeepaliveController {
-  if (!controller) {
-    controller = createOffscreenKeepaliveController({ logger: console });
-    console.debug(`${LOG_PREFIX} Controller initialized`);
-  }
-  return controller;
+    if (!controller) {
+        controller = createOffscreenKeepaliveController({logger: console});
+        console.debug(`${LOG_PREFIX} Controller initialized`);
+    }
+    return controller;
 }
 
 /**
@@ -46,32 +46,33 @@ function getController(): KeepaliveController {
  * ```
  */
 export function acquireKeepalive(tag: string): () => void {
-  try {
-    const release = getController().acquire(tag);
-    console.debug(`${LOG_PREFIX} Acquired keepalive for tag: ${tag}`);
-    return () => {
-      try {
-        release();
-        console.debug(`${LOG_PREFIX} Released keepalive for tag: ${tag}`);
-      } catch (error) {
-        console.warn(`${LOG_PREFIX} Failed to release keepalive for ${tag}:`, error);
-      }
-    };
-  } catch (error) {
-    console.warn(`${LOG_PREFIX} Failed to acquire keepalive for ${tag}:`, error);
-    return () => {};
-  }
+    try {
+        const release = getController().acquire(tag);
+        console.debug(`${LOG_PREFIX} Acquired keepalive for tag: ${tag}`);
+        return () => {
+            try {
+                release();
+                console.debug(`${LOG_PREFIX} Released keepalive for tag: ${tag}`);
+            } catch (error) {
+                console.warn(`${LOG_PREFIX} Failed to release keepalive for ${tag}:`, error);
+            }
+        };
+    } catch (error) {
+        console.warn(`${LOG_PREFIX} Failed to acquire keepalive for ${tag}:`, error);
+        return () => {
+        };
+    }
 }
 
 /**
  * Check if keepalive is currently active (any references held).
  */
 export function isKeepaliveActive(): boolean {
-  try {
-    return getController().isActive();
-  } catch {
-    return false;
-  }
+    try {
+        return getController().isActive();
+    } catch {
+        return false;
+    }
 }
 
 /**
@@ -79,9 +80,9 @@ export function isKeepaliveActive(): boolean {
  * Useful for debugging.
  */
 export function getKeepaliveRefCount(): number {
-  try {
-    return getController().getRefCount();
-  } catch {
-    return 0;
-  }
+    try {
+        return getController().getRefCount();
+    } catch {
+        return 0;
+    }
 }

@@ -5,28 +5,28 @@
  * This enables V3 to execute flows that use V2 action types.
  */
 
-import { createReplayActionRegistry } from '@/entrypoints/background/record-replay/actions/handlers';
+import {createReplayActionRegistry} from '@/entrypoints/background/record-replay/actions/handlers';
 import type {
-  ActionHandler,
-  ExecutableActionType,
+    ActionHandler,
+    ExecutableActionType,
 } from '@/entrypoints/background/record-replay/actions/types';
 
-import type { PluginRegistry } from './registry';
+import type {PluginRegistry} from './registry';
 import {
-  adaptV2ActionHandlerToV3NodeDefinition,
-  type V2ActionNodeAdapterOptions,
+    adaptV2ActionHandlerToV3NodeDefinition,
+    type V2ActionNodeAdapterOptions,
 } from './v2-action-adapter';
 
 export interface RegisterV2ReplayNodesOptions extends V2ActionNodeAdapterOptions {
-  /**
-   * Only include these action types. If not specified, all V2 handlers are included.
-   */
-  include?: ReadonlyArray<string>;
+    /**
+     * Only include these action types. If not specified, all V2 handlers are included.
+     */
+    include?: ReadonlyArray<string>;
 
-  /**
-   * Exclude these action types. Applied after include filter.
-   */
-  exclude?: ReadonlyArray<string>;
+    /**
+     * Exclude these action types. Applied after include filter.
+     */
+    exclude?: ReadonlyArray<string>;
 }
 
 /**
@@ -47,31 +47,31 @@ export interface RegisterV2ReplayNodesOptions extends V2ActionNodeAdapterOptions
  * ```
  */
 export function registerV2ReplayNodesAsV3Nodes(
-  registry: PluginRegistry,
-  options: RegisterV2ReplayNodesOptions = {},
+    registry: PluginRegistry,
+    options: RegisterV2ReplayNodesOptions = {},
 ): string[] {
-  const actionRegistry = createReplayActionRegistry();
-  const handlers = actionRegistry.list();
+    const actionRegistry = createReplayActionRegistry();
+    const handlers = actionRegistry.list();
 
-  const include = options.include ? new Set(options.include) : null;
-  const exclude = options.exclude ? new Set(options.exclude) : null;
+    const include = options.include ? new Set(options.include) : null;
+    const exclude = options.exclude ? new Set(options.exclude) : null;
 
-  const registered: string[] = [];
+    const registered: string[] = [];
 
-  for (const handler of handlers) {
-    if (include && !include.has(handler.type)) continue;
-    if (exclude && exclude.has(handler.type)) continue;
+    for (const handler of handlers) {
+        if (include && !include.has(handler.type)) continue;
+        if (exclude && exclude.has(handler.type)) continue;
 
-    // Cast needed because V2 handler types don't perfectly align with V3 NodeKind
-    const nodeDef = adaptV2ActionHandlerToV3NodeDefinition(
-      handler as ActionHandler<ExecutableActionType>,
-      options,
-    );
-    registry.registerNode(nodeDef as unknown as Parameters<typeof registry.registerNode>[0]);
-    registered.push(handler.type);
-  }
+        // Cast needed because V2 handler types don't perfectly align with V3 NodeKind
+        const nodeDef = adaptV2ActionHandlerToV3NodeDefinition(
+            handler as ActionHandler<ExecutableActionType>,
+            options,
+        );
+        registry.registerNode(nodeDef as unknown as Parameters<typeof registry.registerNode>[0]);
+        registered.push(handler.type);
+    }
 
-  return registered;
+    return registered;
 }
 
 /**
@@ -79,8 +79,8 @@ export function registerV2ReplayNodesAsV3Nodes(
  * Useful for debugging and documentation.
  */
 export function listV2ActionTypes(): string[] {
-  const actionRegistry = createReplayActionRegistry();
-  return actionRegistry.list().map((h) => h.type);
+    const actionRegistry = createReplayActionRegistry();
+    return actionRegistry.list().map((h) => h.type);
 }
 
 /**

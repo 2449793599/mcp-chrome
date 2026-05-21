@@ -8,14 +8,14 @@
  * Manual triggers are fired by calling TriggerManager's fire method directly.
  */
 
-import type { TriggerId } from '../../domain/ids';
-import type { TriggerSpecByKind } from '../../domain/triggers';
-import type { TriggerFireCallback, TriggerHandler, TriggerHandlerFactory } from './trigger-handler';
+import type {TriggerId} from '../../domain/ids';
+import type {TriggerSpecByKind} from '../../domain/triggers';
+import type {TriggerFireCallback, TriggerHandler, TriggerHandlerFactory} from './trigger-handler';
 
 // ==================== Types ====================
 
 export interface ManualTriggerHandlerDeps {
-  logger?: Pick<Console, 'debug' | 'info' | 'warn' | 'error'>;
+    logger?: Pick<Console, 'debug' | 'info' | 'warn' | 'error'>;
 }
 
 type ManualTriggerSpec = TriggerSpecByKind<'manual'>;
@@ -26,9 +26,9 @@ type ManualTriggerSpec = TriggerSpecByKind<'manual'>;
  * Create manual trigger handler factory
  */
 export function createManualTriggerHandlerFactory(
-  deps?: ManualTriggerHandlerDeps,
+    deps?: ManualTriggerHandlerDeps,
 ): TriggerHandlerFactory<'manual'> {
-  return (fireCallback) => createManualTriggerHandler(fireCallback, deps);
+    return (fireCallback) => createManualTriggerHandler(fireCallback, deps);
 }
 
 /**
@@ -38,28 +38,28 @@ export function createManualTriggerHandlerFactory(
  * This handler just tracks which manual triggers are installed.
  */
 export function createManualTriggerHandler(
-  _fireCallback: TriggerFireCallback,
-  _deps?: ManualTriggerHandlerDeps,
+    _fireCallback: TriggerFireCallback,
+    _deps?: ManualTriggerHandlerDeps,
 ): TriggerHandler<'manual'> {
-  const installed = new Map<TriggerId, ManualTriggerSpec>();
+    const installed = new Map<TriggerId, ManualTriggerSpec>();
 
-  return {
-    kind: 'manual',
+    return {
+        kind: 'manual',
 
-    async install(trigger: ManualTriggerSpec): Promise<void> {
-      installed.set(trigger.id, trigger);
-    },
+        async install(trigger: ManualTriggerSpec): Promise<void> {
+            installed.set(trigger.id, trigger);
+        },
 
-    async uninstall(triggerId: string): Promise<void> {
-      installed.delete(triggerId as TriggerId);
-    },
+        async uninstall(triggerId: string): Promise<void> {
+            installed.delete(triggerId as TriggerId);
+        },
 
-    async uninstallAll(): Promise<void> {
-      installed.clear();
-    },
+        async uninstallAll(): Promise<void> {
+            installed.clear();
+        },
 
-    getInstalledIds(): string[] {
-      return Array.from(installed.keys());
-    },
-  };
+        getInstalledIds(): string[] {
+            return Array.from(installed.keys());
+        },
+    };
 }

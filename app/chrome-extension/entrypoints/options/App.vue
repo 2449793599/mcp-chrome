@@ -4,7 +4,7 @@
       <h1>{{ m('userscriptsManagerTitle') }}</h1>
       <div class="switch">
         <label>
-          <input type="checkbox" v-model="emergencyDisabled" @change="saveEmergency" />
+          <input type="checkbox" v-model="emergencyDisabled" @change="saveEmergency"/>
           <span>{{ m('emergencySwitchLabel') }}</span>
         </label>
       </div>
@@ -15,7 +15,7 @@
       <div class="grid">
         <label>
           {{ m('nameLabel') }}
-          <input v-model="form.name" :placeholder="m('placeholderOptional')" />
+          <input v-model="form.name" :placeholder="m('placeholderOptional')"/>
         </label>
         <label>
           {{ m('runAtLabel') }}
@@ -45,32 +45,32 @@
         </label>
         <label>
           {{ m('allFramesLabel') }}
-          <input type="checkbox" v-model="form.allFrames" />
+          <input type="checkbox" v-model="form.allFrames"/>
         </label>
         <label>
           {{ m('persistLabel') }}
-          <input type="checkbox" v-model="form.persist" />
+          <input type="checkbox" v-model="form.persist"/>
         </label>
         <label>
           {{ m('dnrFallbackLabel') }}
-          <input type="checkbox" v-model="form.dnrFallback" />
+          <input type="checkbox" v-model="form.dnrFallback"/>
         </label>
       </div>
       <label>
         {{ m('matchesInputLabel') }}
-        <input v-model="form.matches" :placeholder="m('placeholderMatchesExample')" />
+        <input v-model="form.matches" :placeholder="m('placeholderMatchesExample')"/>
       </label>
       <label>
         {{ m('excludesInputLabel') }}
-        <input v-model="form.excludes" :placeholder="m('placeholderOptional')" />
+        <input v-model="form.excludes" :placeholder="m('placeholderOptional')"/>
       </label>
       <label>
         {{ m('tagsInputLabel') }}
-        <input v-model="form.tags" :placeholder="m('placeholderOptional')" />
+        <input v-model="form.tags" :placeholder="m('placeholderOptional')"/>
       </label>
       <label>
         {{ m('scriptLabel') }}
-        <textarea v-model="form.script" :placeholder="m('placeholderScriptHint')" rows="8" />
+        <textarea v-model="form.script" :placeholder="m('placeholderScriptHint')" rows="8"/>
       </label>
       <div class="row">
         <button :disabled="submitting" @click="apply('auto')">{{ m('applyButton') }}</button>
@@ -84,7 +84,7 @@
       <div class="grid">
         <label>
           {{ m('queryLabel') }}
-          <input v-model="filters.query" @input="reload()" />
+          <input v-model="filters.query" @input="reload()"/>
         </label>
         <label>
           {{ m('statusLabel') }}
@@ -97,9 +97,9 @@
         <label>
           {{ m('domainLabel') }}
           <input
-            v-model="filters.domain"
-            @input="reload()"
-            :placeholder="m('placeholderDomainHint')"
+              v-model="filters.domain"
+              @input="reload()"
+              :placeholder="m('placeholderDomainHint')"
           />
         </label>
       </div>
@@ -108,31 +108,31 @@
       </div>
       <table class="table">
         <thead>
-          <tr>
-            <th>{{ m('tableHeaderName') }}</th>
-            <th>{{ m('statusLabel') }}</th>
-            <th>{{ m('tableHeaderWorld') }}</th>
-            <th>{{ m('tableHeaderRunAt') }}</th>
-            <th>{{ m('tableHeaderUpdated') }}</th>
-            <th></th>
-          </tr>
+        <tr>
+          <th>{{ m('tableHeaderName') }}</th>
+          <th>{{ m('statusLabel') }}</th>
+          <th>{{ m('tableHeaderWorld') }}</th>
+          <th>{{ m('tableHeaderRunAt') }}</th>
+          <th>{{ m('tableHeaderUpdated') }}</th>
+          <th></th>
+        </tr>
         </thead>
         <tbody>
-          <tr v-for="it in items" :key="it.id">
-            <td>{{ it.name || it.id }}</td>
-            <td>
-              <label>
-                <input type="checkbox" :checked="it.status === 'enabled'" @change="toggle(it)" />
-                {{ it.status }}
-              </label>
-            </td>
-            <td>{{ it.world }}</td>
-            <td>{{ it.runAt }}</td>
-            <td>{{ formatTime(it.updatedAt) }}</td>
-            <td class="actions">
-              <button @click="remove(it)">{{ m('deleteButton') }}</button>
-            </td>
-          </tr>
+        <tr v-for="it in items" :key="it.id">
+          <td>{{ it.name || it.id }}</td>
+          <td>
+            <label>
+              <input type="checkbox" :checked="it.status === 'enabled'" @change="toggle(it)"/>
+              {{ it.status }}
+            </label>
+          </td>
+          <td>{{ it.world }}</td>
+          <td>{{ it.runAt }}</td>
+          <td>{{ formatTime(it.updatedAt) }}</td>
+          <td class="actions">
+            <button @click="remove(it)">{{ m('deleteButton') }}</button>
+          </td>
+        </tr>
         </tbody>
       </table>
     </section>
@@ -142,9 +142,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { TOOL_NAMES } from 'chrome-mcp-shared';
-import { STORAGE_KEYS } from '@/common/constants';
+import {ref, onMounted} from 'vue';
+import {TOOL_NAMES} from 'chrome-mcp-shared';
+import {STORAGE_KEYS} from '@/common/constants';
 
 type ListItem = {
   id: string;
@@ -157,7 +157,7 @@ type ListItem = {
 
 const emergencyDisabled = ref(false);
 const items = ref<ListItem[]>([]);
-const filters = ref({ query: '', status: '', domain: '' });
+const filters = ref({query: '', status: '', domain: ''});
 
 const form = ref({
   name: '',
@@ -209,7 +209,7 @@ async function callTool(name: string, args: any) {
 async function reload() {
   const result = await callTool(TOOL_NAMES.BROWSER.USERSCRIPT, {
     action: 'list',
-    args: { ...filters.value },
+    args: {...filters.value},
   });
   try {
     const txt = (result?.content?.[0]?.text as string) || '{}';
@@ -241,7 +241,7 @@ async function apply(mode: 'auto' | 'once') {
       args.excludes = form.value.excludes.split(',').map((s) => s.trim());
     if (form.value.tags.trim()) args.tags = form.value.tags.split(',').map((s) => s.trim());
 
-    const result = await callTool(TOOL_NAMES.BROWSER.USERSCRIPT, { action: 'create', args });
+    const result = await callTool(TOOL_NAMES.BROWSER.USERSCRIPT, {action: 'create', args});
     lastResult.value = (result?.content?.[0]?.text as string) || '';
     await reload();
   } catch (e: any) {
@@ -255,7 +255,7 @@ async function toggle(it: ListItem) {
   try {
     await callTool(TOOL_NAMES.BROWSER.USERSCRIPT, {
       action: it.status === 'enabled' ? 'disable' : 'enable',
-      args: { id: it.id },
+      args: {id: it.id},
     });
     await reload();
   } catch (e) {
@@ -265,7 +265,7 @@ async function toggle(it: ListItem) {
 
 async function remove(it: ListItem) {
   try {
-    await callTool(TOOL_NAMES.BROWSER.USERSCRIPT, { action: 'remove', args: { id: it.id } });
+    await callTool(TOOL_NAMES.BROWSER.USERSCRIPT, {action: 'remove', args: {id: it.id}});
     await reload();
   } catch (e) {
     console.warn('remove failed', e);
@@ -274,9 +274,9 @@ async function remove(it: ListItem) {
 
 async function exportAll() {
   try {
-    const res = await callTool(TOOL_NAMES.BROWSER.USERSCRIPT, { action: 'export', args: {} });
+    const res = await callTool(TOOL_NAMES.BROWSER.USERSCRIPT, {action: 'export', args: {}});
     const txt = (res?.content?.[0]?.text as string) || '{}';
-    const blob = new Blob([txt], { type: 'application/json' });
+    const blob = new Blob([txt], {type: 'application/json'});
     const url = URL.createObjectURL(blob);
     await globalThis.chrome?.downloads?.download({
       url,
@@ -302,20 +302,21 @@ function m(key: string, substitutions?: string | string[]) {
 
 <style scoped>
 .page {
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    Segoe UI,
-    Roboto,
-    sans-serif;
+  font-family: -apple-system,
+  BlinkMacSystemFont,
+  Segoe UI,
+  Roboto,
+  sans-serif;
   padding: 16px;
 }
+
 .topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 12px;
 }
+
 .create,
 .filters {
   background: #fff;
@@ -324,17 +325,20 @@ function m(key: string, substitutions?: string | string[]) {
   padding: 12px;
   margin-bottom: 16px;
 }
+
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
 }
+
 label {
   display: flex;
   flex-direction: column;
   font-size: 12px;
   gap: 4px;
 }
+
 input,
 select,
 textarea {
@@ -343,15 +347,18 @@ textarea {
   padding: 8px;
   font-size: 12px;
 }
+
 textarea {
   resize: vertical;
 }
+
 .row {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-top: 8px;
 }
+
 button {
   background: #3b82f6;
   color: #fff;
@@ -360,18 +367,22 @@ button {
   border-radius: 8px;
   cursor: pointer;
 }
+
 button:hover {
   background: #2563eb;
 }
+
 .hint {
   color: #374151;
   font-size: 12px;
 }
+
 .table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 8px;
 }
+
 .table th,
 .table td {
   border-bottom: 1px solid #e5e7eb;
@@ -379,17 +390,21 @@ button:hover {
   padding: 8px;
   font-size: 12px;
 }
+
 .actions {
   text-align: right;
 }
+
 .switch input {
   margin-right: 6px;
 }
+
 @media (max-width: 960px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
 @media (max-width: 640px) {
   .grid {
     grid-template-columns: 1fr;

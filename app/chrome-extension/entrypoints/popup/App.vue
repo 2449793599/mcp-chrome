@@ -16,11 +16,11 @@
               <div class="status-header">
                 <p class="status-label">{{ getMessage('runningStatusLabel') }}</p>
                 <button
-                  class="refresh-status-button"
-                  @click="refreshServerStatus"
-                  :title="getMessage('refreshStatusButton')"
+                    class="refresh-status-button"
+                    @click="refreshServerStatus"
+                    :title="getMessage('refreshStatusButton')"
                 >
-                  <RefreshIcon className="icon-small" />
+                  <RefreshIcon className="icon-small"/>
                 </button>
               </div>
               <div class="status-info">
@@ -47,23 +47,23 @@
             <div class="port-section">
               <label for="port" class="port-label">{{ getMessage('connectionPortLabel') }}</label>
               <input
-                type="text"
-                id="port"
-                :value="nativeServerPort"
-                @input="updatePort"
-                class="port-input"
+                  type="text"
+                  id="port"
+                  :value="nativeServerPort"
+                  @input="updatePort"
+                  class="port-input"
               />
             </div>
 
             <button class="connect-button" :disabled="isConnecting" @click="testNativeConnection">
-              <BoltIcon />
+              <BoltIcon/>
               <span>{{
-                isConnecting
-                  ? getMessage('connectingStatus')
-                  : nativeConnectionStatus === 'connected'
-                    ? getMessage('disconnectButton')
-                    : getMessage('connectButton')
-              }}</span>
+                  isConnecting
+                      ? getMessage('connectingStatus')
+                      : nativeConnectionStatus === 'connected'
+                          ? getMessage('disconnectButton')
+                          : getMessage('connectButton')
+                }}</span>
             </button>
           </div>
         </div>
@@ -73,32 +73,32 @@
           <h2 class="section-title">快捷工具</h2>
           <div class="rr-icon-buttons">
             <button
-              class="rr-icon-btn rr-icon-btn-record rr-icon-btn-coming-soon has-tooltip"
-              @click="startRecording"
-              data-tooltip="录制功能开发中"
+                class="rr-icon-btn rr-icon-btn-record rr-icon-btn-coming-soon has-tooltip"
+                @click="startRecording"
+                data-tooltip="录制功能开发中"
             >
-              <RecordIcon :recording="false" />
+              <RecordIcon :recording="false"/>
             </button>
             <button
-              class="rr-icon-btn rr-icon-btn-stop rr-icon-btn-coming-soon has-tooltip"
-              @click="stopRecording"
-              data-tooltip="录制功能开发中"
+                class="rr-icon-btn rr-icon-btn-stop rr-icon-btn-coming-soon has-tooltip"
+                @click="stopRecording"
+                data-tooltip="录制功能开发中"
             >
-              <StopIcon />
+              <StopIcon/>
             </button>
             <button
-              class="rr-icon-btn rr-icon-btn-edit has-tooltip"
-              @click="toggleWebEditor"
-              data-tooltip="开启页面编辑模式"
+                class="rr-icon-btn rr-icon-btn-edit has-tooltip"
+                @click="toggleWebEditor"
+                data-tooltip="开启页面编辑模式"
             >
-              <EditIcon />
+              <EditIcon/>
             </button>
             <button
-              class="rr-icon-btn rr-icon-btn-marker has-tooltip"
-              @click="toggleElementMarker"
-              data-tooltip="开启元素标注"
+                class="rr-icon-btn rr-icon-btn-marker has-tooltip"
+                @click="toggleElementMarker"
+                data-tooltip="开启元素标注"
             >
-              <MarkerIcon />
+              <MarkerIcon/>
             </button>
           </div>
         </div>
@@ -110,17 +110,17 @@
             <button class="entry-item" @click="openAgentSidepanel">
               <div class="entry-icon agent">
                 <svg
-                  viewBox="0 0 24 24"
-                  width="20"
-                  height="20"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                   />
                 </svg>
               </div>
@@ -129,20 +129,20 @@
                 <span class="entry-desc">AI Agent 对话与任务</span>
               </div>
               <svg
-                class="entry-arrow"
-                viewBox="0 0 24 24"
-                width="16"
-                height="16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
+                  class="entry-arrow"
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
               >
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
               </svg>
             </button>
             <button class="entry-item entry-item-coming-soon" @click="openWorkflowSidepanel">
               <div class="entry-icon workflow">
-                <WorkflowIcon />
+                <WorkflowIcon/>
               </div>
               <div class="entry-content">
                 <span class="entry-title">
@@ -152,31 +152,31 @@
                 <span class="entry-desc">录制与回放自动化流程</span>
               </div>
               <svg
-                class="entry-arrow"
-                viewBox="0 0 24 24"
-                width="16"
-                height="16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
+                  class="entry-arrow"
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
               >
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
               </svg>
             </button>
             <button class="entry-item" @click="openElementMarkerSidepanel">
               <div class="entry-icon marker">
                 <svg
-                  viewBox="0 0 24 24"
-                  width="20"
-                  height="20"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
                   />
                 </svg>
               </div>
@@ -185,31 +185,31 @@
                 <span class="entry-desc">管理页面元素标注</span>
               </div>
               <svg
-                class="entry-arrow"
-                viewBox="0 0 24 24"
-                width="16"
-                height="16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
+                  class="entry-arrow"
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
               >
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
               </svg>
             </button>
             <button class="entry-item" @click="currentView = 'local-model'">
               <div class="entry-icon model">
                 <svg
-                  viewBox="0 0 24 24"
-                  width="20"
-                  height="20"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                   />
                 </svg>
               </div>
@@ -218,15 +218,15 @@
                 <span class="entry-desc">语义引擎与模型管理</span>
               </div>
               <svg
-                class="entry-arrow"
-                viewBox="0 0 24 24"
-                width="16"
-                height="16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
+                  class="entry-arrow"
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
               >
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
               </svg>
             </button>
           </div>
@@ -238,10 +238,10 @@
           <button class="footer-link" @click="openWelcomePage" title="View installation guide">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
             Guide
@@ -249,10 +249,10 @@
           <button class="footer-link" @click="openTroubleshooting" title="Troubleshooting">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
               />
             </svg>
             Docs
@@ -264,50 +264,50 @@
 
     <!-- 本地模型二级页面 -->
     <LocalModelPage
-      v-show="currentView === 'local-model'"
-      :semantic-engine-status="semanticEngineStatus"
-      :is-semantic-engine-initializing="isSemanticEngineInitializing"
-      :semantic-engine-init-progress="semanticEngineInitProgress"
-      :semantic-engine-last-updated="semanticEngineLastUpdated"
-      :available-models="availableModels"
-      :current-model="currentModel"
-      :is-model-switching="isModelSwitching"
-      :is-model-downloading="isModelDownloading"
-      :model-download-progress="modelDownloadProgress"
-      :model-initialization-status="modelInitializationStatus"
-      :model-error-message="modelErrorMessage"
-      :model-error-type="modelErrorType"
-      :storage-stats="storageStats"
-      :is-clearing-data="isClearingData"
-      :clear-data-progress="clearDataProgress"
-      :cache-stats="cacheStats"
-      :is-managing-cache="isManagingCache"
-      @back="currentView = 'home'"
-      @initialize-semantic-engine="initializeSemanticEngine"
-      @switch-model="switchModel"
-      @retry-model-initialization="retryModelInitialization"
-      @show-clear-confirmation="showClearConfirmation = true"
-      @cleanup-cache="cleanupCache"
-      @clear-all-cache="clearAllCache"
+        v-show="currentView === 'local-model'"
+        :semantic-engine-status="semanticEngineStatus"
+        :is-semantic-engine-initializing="isSemanticEngineInitializing"
+        :semantic-engine-init-progress="semanticEngineInitProgress"
+        :semantic-engine-last-updated="semanticEngineLastUpdated"
+        :available-models="availableModels"
+        :current-model="currentModel"
+        :is-model-switching="isModelSwitching"
+        :is-model-downloading="isModelDownloading"
+        :model-download-progress="modelDownloadProgress"
+        :model-initialization-status="modelInitializationStatus"
+        :model-error-message="modelErrorMessage"
+        :model-error-type="modelErrorType"
+        :storage-stats="storageStats"
+        :is-clearing-data="isClearingData"
+        :clear-data-progress="clearDataProgress"
+        :cache-stats="cacheStats"
+        :is-managing-cache="isManagingCache"
+        @back="currentView = 'home'"
+        @initialize-semantic-engine="initializeSemanticEngine"
+        @switch-model="switchModel"
+        @retry-model-initialization="retryModelInitialization"
+        @show-clear-confirmation="showClearConfirmation = true"
+        @cleanup-cache="cleanupCache"
+        @clear-all-cache="clearAllCache"
     />
 
     <ConfirmDialog
-      :visible="showClearConfirmation"
-      :title="getMessage('confirmClearDataTitle')"
-      :message="getMessage('clearDataWarningMessage')"
-      :items="[
+        :visible="showClearConfirmation"
+        :title="getMessage('confirmClearDataTitle')"
+        :message="getMessage('clearDataWarningMessage')"
+        :items="[
         getMessage('clearDataList1'),
         getMessage('clearDataList2'),
         getMessage('clearDataList3'),
       ]"
-      :warning="getMessage('clearDataIrreversibleWarning')"
-      icon="⚠️"
-      :confirm-text="getMessage('confirmClearButton')"
-      :cancel-text="getMessage('cancelButton')"
-      :confirming-text="getMessage('clearingStatus')"
-      :is-confirming="isClearingData"
-      @confirm="confirmClearAllData"
-      @cancel="hideClearDataConfirmation"
+        :warning="getMessage('clearDataIrreversibleWarning')"
+        icon="⚠️"
+        :confirm-text="getMessage('confirmClearButton')"
+        :cancel-text="getMessage('cancelButton')"
+        :confirming-text="getMessage('clearingStatus')"
+        :is-confirming="isClearingData"
+        @confirm="confirmClearAllData"
+        @cancel="hideClearDataConfirmation"
     />
 
     <!-- 侧边栏承担工作流管理；编辑器在独立窗口中打开 -->
@@ -316,14 +316,14 @@
     <Transition name="toast">
       <div v-if="comingSoonToast.show" class="coming-soon-toast">
         <svg
-          class="toast-icon"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
+            class="toast-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
         >
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 6v6l4 2" stroke-linecap="round" stroke-linejoin="round" />
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 6v6l4 2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <span>{{ comingSoonToast.feature }} 功能开发中，敬请期待</span>
       </div>
@@ -332,7 +332,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import {ref, onMounted, onUnmounted, computed} from 'vue';
 import {
   PREDEFINED_MODELS,
   type ModelPreset,
@@ -341,10 +341,10 @@ import {
   clearModelCache,
   cleanupModelCache,
 } from '@/utils/semantic-similarity-engine';
-import { BACKGROUND_MESSAGE_TYPES } from '@/common/message-types';
-import { LINKS } from '@/common/constants';
-import { getMessage } from '@/utils/i18n';
-import { useAgentTheme, type AgentThemeId } from '../sidepanel/composables/useAgentTheme';
+import {BACKGROUND_MESSAGE_TYPES} from '@/common/message-types';
+import {LINKS} from '@/common/constants';
+import {getMessage} from '@/utils/i18n';
+import {useAgentTheme, type AgentThemeId} from '../sidepanel/composables/useAgentTheme';
 
 import ConfirmDialog from './components/ConfirmDialog.vue';
 import ProgressIndicator from './components/ProgressIndicator.vue';
@@ -367,25 +367,25 @@ import {
 } from './components/icons';
 
 // AgentChat theme - 从preload中获取，保持与sidepanel一致
-const { theme: agentTheme, initTheme } = useAgentTheme();
+const {theme: agentTheme, initTheme} = useAgentTheme();
 
 // 当前视图状态：首页 or 本地模型页
 const currentView = ref<'home' | 'local-model'>('home');
 
 // Coming Soon Toast
-const comingSoonToast = ref<{ show: boolean; feature: string }>({ show: false, feature: '' });
+const comingSoonToast = ref<{ show: boolean; feature: string }>({show: false, feature: ''});
 
 function showComingSoonToast(feature: string) {
-  comingSoonToast.value = { show: true, feature };
+  comingSoonToast.value = {show: true, feature};
   setTimeout(() => {
-    comingSoonToast.value = { show: false, feature: '' };
+    comingSoonToast.value = {show: false, feature: ''};
   }, 2000);
 }
 
 // Record & Replay state
 const rrRecording = ref(false);
 const rrFlows = ref<
-  Array<{ id: string; name: string; description?: string; meta?: any; variables?: any[] }>
+    Array<{ id: string; name: string; description?: string; meta?: any; variables?: any[] }>
 >([]);
 const rrOnlyBound = ref(false);
 const rrSearch = ref('');
@@ -406,7 +406,7 @@ const filteredRrFlows = computed(() => {
 
 const loadFlows = async () => {
   try {
-    const res = await chrome.runtime.sendMessage({ type: BACKGROUND_MESSAGE_TYPES.RR_LIST_FLOWS });
+    const res = await chrome.runtime.sendMessage({type: BACKGROUND_MESSAGE_TYPES.RR_LIST_FLOWS});
     if (res && res.success) rrFlows.value = res.flows || [];
   } catch (e) {
     /* ignore */
@@ -475,14 +475,15 @@ const runFlow = async (flowId: string) => {
         flowId,
       });
       if (getRes && getRes.success) flow = getRes.flow;
-    } catch {}
+    } catch {
+    }
     const runOptions = (flow && flow.meta && flow.meta.runOptions) || {};
     // No per-run overrides in popup; sidepanel/editor manage advanced options
     const ov: any = {};
     const res = await chrome.runtime.sendMessage({
       type: BACKGROUND_MESSAGE_TYPES.RR_RUN_FLOW,
       flowId,
-      options: { ...runOptions, ...ov, returnLogs: true },
+      options: {...runOptions, ...ov, returnLogs: true},
     });
     if (!(res && res.success)) {
       console.warn('回放失败');
@@ -504,7 +505,8 @@ const runFlow = async (flowId: string) => {
         const fb = logs.find((l: any) => l.fallbackUsed && l.fallbackTo);
         if (fb && flow) openBuilderWindow(flow.id, String(fb.stepId || ''));
       }
-    } catch {}
+    } catch {
+    }
   } catch (e) {
     console.error('回放失败:', e);
   }
@@ -551,7 +553,7 @@ const modelSwitchProgress = ref('');
 const modelDownloadProgress = ref<number>(0);
 const isModelDownloading = ref(false);
 const modelInitializationStatus = ref<'idle' | 'downloading' | 'initializing' | 'ready' | 'error'>(
-  'idle',
+    'idle',
 );
 const modelErrorMessage = ref<string>('');
 const modelErrorType = ref<'network' | 'file' | 'unknown' | ''>('');
@@ -623,7 +625,7 @@ async function openSidepanelAndClose(tab: string) {
       });
     }
     if (chrome.sidePanel && (chrome.sidePanel as any).open) {
-      await (chrome.sidePanel as any).open({ windowId: current.id! });
+      await (chrome.sidePanel as any).open({windowId: current.id!});
     }
     // Close popup after opening sidepanel
     window.close();
@@ -651,7 +653,7 @@ function openAgentSidepanel() {
 
 async function toggleWebEditor() {
   try {
-    await chrome.runtime.sendMessage({ type: BACKGROUND_MESSAGE_TYPES.WEB_EDITOR_TOGGLE });
+    await chrome.runtime.sendMessage({type: BACKGROUND_MESSAGE_TYPES.WEB_EDITOR_TOGGLE});
   } catch (error) {
     console.warn('切换网页编辑模式失败:', error);
   }
@@ -660,7 +662,7 @@ async function toggleWebEditor() {
 async function toggleElementMarker() {
   try {
     // 获取当前活动tab
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const [tab] = await chrome.tabs.query({active: true, currentWindow: true});
     if (!tab?.id) {
       console.warn('无法获取当前tab');
       return;
@@ -678,7 +680,7 @@ async function toggleElementMarker() {
 
 async function openWelcomePage() {
   try {
-    await chrome.tabs.create({ url: chrome.runtime.getURL('welcome.html') });
+    await chrome.tabs.create({url: chrome.runtime.getURL('welcome.html')});
   } catch {
     // ignore
   }
@@ -686,7 +688,7 @@ async function openWelcomePage() {
 
 async function openTroubleshooting() {
   try {
-    await chrome.tabs.create({ url: LINKS.TROUBLESHOOTING });
+    await chrome.tabs.create({url: LINKS.TROUBLESHOOTING});
   } catch {
     // ignore
   }
@@ -696,7 +698,7 @@ function openBuilderWindow(flowId?: string, focusNodeId?: string) {
   const url = new URL(chrome.runtime.getURL('builder.html'));
   if (flowId) url.searchParams.set('flowId', flowId);
   if (focusNodeId) url.searchParams.set('focus', focusNodeId);
-  chrome.windows.create({ url: url.toString(), type: 'popup', width: 1280, height: 800 });
+  chrome.windows.create({url: url.toString(), type: 'popup', width: 1280, height: 800});
 }
 
 const getStatusText = () => {
@@ -858,7 +860,7 @@ const saveSemanticEngineState = async () => {
       lastUpdated: semanticEngineLastUpdated.value,
     };
     // eslint-disable-next-line no-undef
-    await chrome.storage.local.set({ semanticEngineState });
+    await chrome.storage.local.set({semanticEngineState});
   } catch (error) {
     console.error('保存语义引擎状态失败:', error);
   }
@@ -869,14 +871,14 @@ const initializeSemanticEngine = async () => {
 
   const isReinitialization = semanticEngineStatus.value === 'ready';
   console.log(
-    `🚀 User triggered semantic engine ${isReinitialization ? 'reinitialization' : 'initialization'}`,
+      `🚀 User triggered semantic engine ${isReinitialization ? 'reinitialization' : 'initialization'}`,
   );
 
   isSemanticEngineInitializing.value = true;
   semanticEngineStatus.value = 'initializing';
   semanticEngineInitProgress.value = isReinitialization
-    ? getMessage('semanticEngineInitializingStatus')
-    : getMessage('semanticEngineInitializingStatus');
+      ? getMessage('semanticEngineInitializingStatus')
+      : getMessage('semanticEngineInitializingStatus');
   semanticEngineLastUpdated.value = Date.now();
 
   await saveSemanticEngineState();
@@ -884,18 +886,18 @@ const initializeSemanticEngine = async () => {
   try {
     // eslint-disable-next-line no-undef
     chrome.runtime
-      .sendMessage({
-        type: BACKGROUND_MESSAGE_TYPES.INITIALIZE_SEMANTIC_ENGINE,
-      })
-      .catch((error) => {
-        console.error('❌ Error sending semantic engine initialization request:', error);
-      });
+        .sendMessage({
+          type: BACKGROUND_MESSAGE_TYPES.INITIALIZE_SEMANTIC_ENGINE,
+        })
+        .catch((error) => {
+          console.error('❌ Error sending semantic engine initialization request:', error);
+        });
 
     startSemanticEngineStatusPolling();
 
     semanticEngineInitProgress.value = isReinitialization
-      ? getMessage('processingStatus')
-      : getMessage('processingStatus');
+        ? getMessage('processingStatus')
+        : getMessage('processingStatus');
   } catch (error: any) {
     console.error('❌ Failed to send initialization request:', error);
     semanticEngineStatus.value = 'error';
@@ -934,8 +936,8 @@ const checkSemanticEngineStatus = async () => {
           semanticEngineInitProgress.value = '';
         }, 2000);
       } else if (
-        status.initializationStatus === 'downloading' ||
-        status.initializationStatus === 'initializing'
+          status.initializationStatus === 'downloading' ||
+          status.initializationStatus === 'initializing'
       ) {
         semanticEngineStatus.value = 'initializing';
         isSemanticEngineInitializing.value = true;
@@ -994,7 +996,7 @@ const updatePort = async (event: Event) => {
 const checkNativeConnection = async () => {
   try {
     // eslint-disable-next-line no-undef
-    const response = await chrome.runtime.sendMessage({ type: 'ping_native' });
+    const response = await chrome.runtime.sendMessage({type: 'ping_native'});
     nativeConnectionStatus.value = response?.connected ? 'connected' : 'disconnected';
   } catch (error) {
     console.error('检测 Native 连接状态失败:', error);
@@ -1062,7 +1064,7 @@ const testNativeConnection = async () => {
   try {
     if (nativeConnectionStatus.value === 'connected') {
       // eslint-disable-next-line no-undef
-      await chrome.runtime.sendMessage({ type: 'disconnect_native' });
+      await chrome.runtime.sendMessage({type: 'disconnect_native'});
       nativeConnectionStatus.value = 'disconnected';
     } else {
       console.log(`尝试连接到端口: ${nativeServerPort.value}`);
@@ -1107,7 +1109,7 @@ const loadModelPreference = async () => {
         console.log(`✅ Loaded valid model: ${currentModel.value}`);
       } else {
         console.warn(
-          `⚠️ Stored model "${storedModel}" not found in PREDEFINED_MODELS, using default`,
+            `⚠️ Stored model "${storedModel}" not found in PREDEFINED_MODELS, using default`,
         );
         currentModel.value = 'multilingual-e5-small';
         await saveModelPreference(currentModel.value);
@@ -1165,7 +1167,7 @@ const loadModelPreference = async () => {
 const saveModelPreference = async (model: ModelPreset) => {
   try {
     // eslint-disable-next-line no-undef
-    await chrome.storage.local.set({ selectedModel: model });
+    await chrome.storage.local.set({selectedModel: model});
   } catch (error) {
     console.error('保存模型偏好失败:', error);
   }
@@ -1174,7 +1176,7 @@ const saveModelPreference = async (model: ModelPreset) => {
 const saveVersionPreference = async (version: 'full' | 'quantized' | 'compressed') => {
   try {
     // eslint-disable-next-line no-undef
-    await chrome.storage.local.set({ selectedVersion: version });
+    await chrome.storage.local.set({selectedVersion: version});
   } catch (error) {
     console.error('保存版本偏好失败:', error);
   }
@@ -1183,7 +1185,7 @@ const saveVersionPreference = async (version: 'full' | 'quantized' | 'compressed
 const savePortPreference = async (port: number) => {
   try {
     // eslint-disable-next-line no-undef
-    await chrome.storage.local.set({ nativeServerPort: port });
+    await chrome.storage.local.set({nativeServerPort: port});
     console.log(`端口偏好已保存: ${port}`);
   } catch (error) {
     console.error('保存端口偏好失败:', error);
@@ -1212,7 +1214,7 @@ const saveModelState = async () => {
       lastUpdated: Date.now(),
     };
     // eslint-disable-next-line no-undef
-    await chrome.storage.local.set({ modelState });
+    await chrome.storage.local.set({modelState});
   } catch (error) {
     console.error('保存模型状态失败:', error);
   }
@@ -1385,15 +1387,15 @@ const switchModel = async (newModel: ModelPreset) => {
 
   const isSameModel = newModel === currentModel.value;
   const currentModelInfo = currentModel.value
-    ? getModelInfo(currentModel.value)
-    : getModelInfo('multilingual-e5-small');
+      ? getModelInfo(currentModel.value)
+      : getModelInfo('multilingual-e5-small');
   const newModelInfo = getModelInfo(newModel);
   const isDifferentDimension = currentModelInfo.dimension !== newModelInfo.dimension;
 
   console.log(`📊 Switch analysis:`);
   console.log(`   - Same model: ${isSameModel} (${currentModel.value} -> ${newModel})`);
   console.log(
-    `   - Current dimension: ${currentModelInfo.dimension}, New dimension: ${newModelInfo.dimension}`,
+      `   - Current dimension: ${currentModelInfo.dimension}, New dimension: ${newModelInfo.dimension}`,
   );
   console.log(`   - Different dimension: ${isDifferentDimension}`);
 
@@ -1408,7 +1410,7 @@ const switchModel = async (newModel: ModelPreset) => {
 
   console.log(`🚀 Switching model due to: ${switchReasons.join(', ')}`);
   console.log(
-    `📋 Model: ${currentModel.value} (${currentModelInfo.dimension}D) -> ${newModel} (${newModelInfo.dimension}D)`,
+      `📋 Model: ${currentModel.value} (${currentModelInfo.dimension}D) -> ${newModel} (${newModelInfo.dimension}D)`,
   );
 
   isModelSwitching.value = true;
@@ -1440,11 +1442,11 @@ const switchModel = async (newModel: ModelPreset) => {
       currentModel.value = newModel;
       modelSwitchProgress.value = getMessage('successNotification');
       console.log(
-        '模型切换成功:',
-        newModel,
-        'version: quantized',
-        'dimension:',
-        newModelInfo.dimension,
+          '模型切换成功:',
+          newModel,
+          'version: quantized',
+          'dimension:',
+          newModelInfo.dimension,
       );
 
       modelInitializationStatus.value = 'ready';
@@ -1466,16 +1468,16 @@ const switchModel = async (newModel: ModelPreset) => {
 
     const errorMessage = error?.message || '未知错误';
     if (
-      errorMessage.includes('network') ||
-      errorMessage.includes('fetch') ||
-      errorMessage.includes('timeout')
+        errorMessage.includes('network') ||
+        errorMessage.includes('fetch') ||
+        errorMessage.includes('timeout')
     ) {
       modelErrorType.value = 'network';
       modelErrorMessage.value = getMessage('networkErrorMessage');
     } else if (
-      errorMessage.includes('corrupt') ||
-      errorMessage.includes('invalid') ||
-      errorMessage.includes('format')
+        errorMessage.includes('corrupt') ||
+        errorMessage.includes('invalid') ||
+        errorMessage.includes('format')
     ) {
       modelErrorType.value = 'file';
       modelErrorMessage.value = getMessage('modelCorruptedErrorMessage');
@@ -1523,9 +1525,10 @@ onMounted(async () => {
   await loadCacheStats();
   await loadFlows();
   try {
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const [tab] = await chrome.tabs.query({active: true, currentWindow: true});
     currentTabUrl.value = tab?.url || '';
-  } catch {}
+  } catch {
+  }
 
   await checkSemanticEngineStatus();
   setupServerStatusListener();
@@ -1535,11 +1538,13 @@ onMounted(async () => {
       try {
         if (area !== 'local') return;
         if (Object.prototype.hasOwnProperty.call(changes || {}, 'rr_flows')) loadFlows();
-      } catch {}
+      } catch {
+      }
     };
     chrome.storage.onChanged.addListener(onChanged);
     (window as any).__rr_popup_onChanged = onChanged;
-  } catch {}
+  } catch {
+  }
 });
 
 onUnmounted(() => {
@@ -1551,14 +1556,16 @@ onUnmounted(() => {
     if (msgFn && chrome?.runtime?.onMessage?.removeListener) {
       chrome.runtime.onMessage.removeListener(msgFn);
     }
-  } catch {}
+  } catch {
+  }
   // Clean up storage change listener (legacy fallback)
   try {
     const fn = (window as any).__rr_popup_onChanged;
     if (fn && chrome?.storage?.onChanged?.removeListener) {
       chrome.storage.onChanged.removeListener(fn);
     }
-  } catch {}
+  } catch {
+  }
 });
 </script>
 
@@ -1617,6 +1624,7 @@ onUnmounted(() => {
 .content::-webkit-scrollbar {
   display: none;
 }
+
 .status-card {
   background: white;
   border-radius: 16px;
@@ -1683,6 +1691,7 @@ onUnmounted(() => {
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
+
 .stats-card {
   background: white;
   border-radius: 12px;
@@ -1786,6 +1795,7 @@ onUnmounted(() => {
   color: #374151;
   margin-bottom: 12px;
 }
+
 .current-model-card {
   background: linear-gradient(135deg, #faf5ff, #f3e8ff);
   border: 1px solid #e9d5ff;
@@ -1897,6 +1907,7 @@ onUnmounted(() => {
   gap: 8px;
   margin-top: 16px;
 }
+
 .model-tag {
   display: inline-flex;
   align-items: center;
@@ -1930,6 +1941,7 @@ onUnmounted(() => {
   flex-direction: column;
   gap: 14px;
 }
+
 .semantic-engine-card {
   background: white;
   border-radius: 16px;
@@ -2112,6 +2124,7 @@ onUnmounted(() => {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
 .error-card {
   background: #fef2f2;
   border: 1px solid #fecaca;
@@ -2185,6 +2198,7 @@ onUnmounted(() => {
   opacity: 0.6;
   cursor: not-allowed;
 }
+
 .danger-button {
   width: 100%;
   display: flex;
@@ -2227,6 +2241,7 @@ onUnmounted(() => {
   width: 24px;
   height: 24px;
 }
+
 .footer {
   padding: 16px;
   margin-top: auto;
@@ -2287,15 +2302,18 @@ onUnmounted(() => {
     flex-direction: column;
     gap: 12px;
   }
+
   .rr-controls {
     display: flex;
     gap: 8px;
   }
+
   .rr-list {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
+
   .rr-item {
     display: flex;
     justify-content: space-between;
@@ -2304,6 +2322,7 @@ onUnmounted(() => {
     border: 1px solid #eee;
     border-radius: 6px;
   }
+
   .rr-runoverrides {
     margin-top: 6px;
     border: 1px dashed #e5e7eb;
@@ -2311,17 +2330,21 @@ onUnmounted(() => {
     padding: 8px;
     background: #f9fafb;
   }
+
   .rr-meta {
     display: flex;
     flex-direction: column;
   }
+
   .rr-name {
     font-weight: 600;
   }
+
   .rr-desc {
     font-size: 12px;
     color: #666;
   }
+
   .empty {
     color: #888;
     font-size: 13px;
@@ -2491,9 +2514,8 @@ onUnmounted(() => {
   border-radius: var(--ac-radius-button, 8px);
   opacity: 0;
   visibility: hidden;
-  transition:
-    opacity 80ms ease,
-    visibility 80ms ease;
+  transition: opacity 80ms ease,
+  visibility 80ms ease;
   pointer-events: none;
   z-index: 100;
 }
@@ -2508,9 +2530,8 @@ onUnmounted(() => {
   border-top-color: var(--ac-text, #1a1a1a);
   opacity: 0;
   visibility: hidden;
-  transition:
-    opacity 80ms ease,
-    visibility 80ms ease;
+  transition: opacity 80ms ease,
+  visibility 80ms ease;
   pointer-events: none;
   z-index: 100;
 }

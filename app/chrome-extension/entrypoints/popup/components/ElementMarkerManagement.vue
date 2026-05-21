@@ -18,7 +18,7 @@
           <p class="mcp-config-label">新增标注</p>
         </div>
         <div style="display: flex; gap: 8px; margin-bottom: 8px">
-          <input v-model="form.name" placeholder="名称，如 登录按钮" class="port-input" />
+          <input v-model="form.name" placeholder="名称，如 登录按钮" class="port-input"/>
           <select v-model="form.selectorType" class="port-input" style="max-width: 120px">
             <option value="css">CSS</option>
             <option value="xpath">XPath</option>
@@ -29,7 +29,7 @@
             <option value="host">域名</option>
           </select>
         </div>
-        <input v-model="form.selector" placeholder="CSS 选择器" class="port-input" />
+        <input v-model="form.selector" placeholder="CSS 选择器" class="port-input"/>
         <div style="display: flex; gap: 8px; margin-top: 8px">
           <button class="semantic-engine-button" :disabled="!form.selector" type="submit">
             保存
@@ -40,10 +40,10 @@
 
       <div v-if="markers.length" class="model-list" style="margin-top: 8px">
         <div
-          v-for="m in markers"
-          :key="m.id"
-          class="model-card"
-          style="display: flex; align-items: center; justify-content: space-between; gap: 8px"
+            v-for="m in markers"
+            :key="m.id"
+            class="model-card"
+            style="display: flex; align-items: center; justify-content: space-between; gap: 8px"
         >
           <div style="display: flex; flex-direction: column; gap: 4px">
             <strong class="model-name">{{ m.name }}</strong>
@@ -65,9 +65,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import type { ElementMarker, UpsertMarkerRequest } from '@/common/element-marker-types';
-import { BACKGROUND_MESSAGE_TYPES } from '@/common/message-types';
+import {ref, onMounted} from 'vue';
+import type {ElementMarker, UpsertMarkerRequest} from '@/common/element-marker-types';
+import {BACKGROUND_MESSAGE_TYPES} from '@/common/message-types';
 
 const currentUrl = ref('');
 const markers = ref<ElementMarker[]>([]);
@@ -80,12 +80,12 @@ const form = ref<UpsertMarkerRequest>({
 });
 
 function resetForm() {
-  form.value = { url: currentUrl.value, name: '', selector: '', matchType: 'prefix' };
+  form.value = {url: currentUrl.value, name: '', selector: '', matchType: 'prefix'};
 }
 
 async function load() {
   try {
-    const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+    const tabs = await chrome.tabs.query({active: true, currentWindow: true});
     const t = tabs[0];
     currentUrl.value = String(t?.url || '');
     form.value.url = currentUrl.value;
@@ -162,14 +162,14 @@ async function validate(m: ElementMarker) {
 
 async function highlightInTab(m: ElementMarker) {
   try {
-    const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+    const tabs = await chrome.tabs.query({active: true, currentWindow: true});
     const tabId = tabs[0]?.id;
     if (!tabId) return;
 
     // Ensure element-marker.js is injected
     try {
       await chrome.scripting.executeScript({
-        target: { tabId, allFrames: true },
+        target: {tabId, allFrames: true},
         files: ['inject-scripts/element-marker.js'],
         world: 'ISOLATED',
       });

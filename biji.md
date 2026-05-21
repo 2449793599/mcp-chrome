@@ -120,7 +120,35 @@ npm run dev
 ---
 # native-server
 
-执行输出：npm run dev
+
+## 0. 常用命令
+```
+C:\Users\WETEC>REG QUERY "HKCU\Software\Google\Chrome\NativeMessagingHosts\com.chromemcp.nativehost"
+
+HKEY_CURRENT_USER\Software\Google\Chrome\NativeMessagingHosts\com.chromemcp.nativehost
+    (默认)    REG_SZ    C:\Users\WETEC\AppData\Roaming\Google\Chrome\NativeMessagingHosts\com.chromemcp.nativehost.json
+```
+关键路径：
+```
+日志：
+C:\Users\WETEC\AppData\Local\mcp-chrome-bridge\logs
+清单
+C:\Users\WETEC\AppData\Roaming\Google\Chrome\NativeMessagingHosts\com.chromemcp.nativehost.json
+
+
+本地安装：
+D:\workspace\chrome-mcp\app\native-server\dist\run_host.bat
+全局安装：
+C:\Users\WETEC\AppData\Local\pnpm\store\v11\links\@\mcp-chrome-bridge\1.0.31\54a067a99c8730c69f66eba430569844990c19a17208c0dfc7ffca6dcf6f9865\node_modules\mcp-chrome-bridge\dist\run_host.bat
+C:\Users\WETEC\AppData\Roaming\npm\chrome-mcp-bridge.cmd
+
+```
+
+
+## 1. 本地编译安装
+
+1. 执行输出：npm run dev
+
 ```
 app/native-server dev: [nodemon] 3.1.14
 app/native-server dev: [nodemon] to restart at any time, enter `rs`
@@ -168,7 +196,8 @@ app/native-server dev: ✓ Chrome: Success
 app/native-server dev: [nodemon] clean exit - waiting for changes before restart
 ```
 
-编译：npm run build:shared
+2. 编译：npm run build:shared
+
 ```
 > mcp-chrome-bridge-monorepo@1.0.0 build:shared
 > pnpm --filter chrome-mcp-shared build
@@ -190,7 +219,9 @@ DTS ⚡️ Build success in 971ms
 DTS dist\index.d.ts  23.68 KB
 DTS dist\index.d.mts 23.68 KB
 ```
-编译：npm run build:native
+
+3. 编译：npm run build:native
+
 ```
 > mcp-chrome-bridge-monorepo@1.0.0 build:native
 > pnpm --filter mcp-chrome-bridge build
@@ -215,8 +246,25 @@ bat
 已写入 Node.js 路径: D:\software\nodejs\node.exe
 ✅ 构建完成
 ```
+清单文件写入路径：C:\Users\WETEC\AppData\Roaming\Google\Chrome\NativeMessagingHosts\com.chromemcp.nativehost.json
+```
+{
+  "name": "com.chromemcp.nativehost",
+  "description": "Node.js Host for Browser Bridge Extension",
+  "path": "D:\\workspace\\chrome-mcp\\app\\native-server\\dist\\run_host.bat",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://hbdgbgagpkpjffpklnamcljpakneikee/"
+  ]
+}
+```
+run_host.bat：脚本运行日志目录
+```
+C:\Users\WETEC\AppData\Local\mcp-chrome-bridge\logs
+```
 
-全局安装路径：
+
+## 2. 全局安装路径
 - npm install -g mcp-chrome-bridge
 - pnpm add -g mcp-chrome-bridge
 - pnpm install -g mcp-chrome-bridge
@@ -272,13 +320,15 @@ You can now use connectNative in Chrome extension to connect to this service.
   ]
 }
 ```
+run_host.bat：脚本运行日志目录
 ```
-C:\Users\WETEC>REG QUERY "HKCU\Software\Google\Chrome\NativeMessagingHosts\com.chromemcp.nativehost"
+C:\Users\WETEC\AppData\Local\mcp-chrome-bridge\logs
+```
 
-HKEY_CURRENT_USER\Software\Google\Chrome\NativeMessagingHosts\com.chromemcp.nativehost
-    (默认)    REG_SZ    C:\Users\WETEC\AppData\Roaming\Google\Chrome\NativeMessagingHosts\com.chromemcp.nativehost.json
-```
-执行日志：C:\Users\WETEC\AppData\Local\mcp-chrome-bridge\logs
+
+## 3. 常见错误
+
+脚本运行日志报错：
 ```
 node:internal/modules/cjs/loader:692
       throw e;
@@ -298,7 +348,7 @@ Error [ERR_PACKAGE_PATH_NOT_EXPORTED]: Package subpath './v4' is not defined by 
   code: 'ERR_PACKAGE_PATH_NOT_EXPORTED'
 }
 ```
-这个错误是因为你使用的 @modelcontextprotocol/sdk 需要从 Zod 导入 v4 子路径（zod/v4），但你当前项目中安装的是 Zod 3.x 版本，而 zod/v4 导出路径只在 Zod 4.x 中才存在
+这个错误是因为你使用的`@modelcontextprotocol/sdk`需要从`Zod`导入v4子路径（zod/v4），但你当前项目中安装的是`Zod 3.x`版本，而`zod/v4`导出路径只在`Zod 4.x`中才存在
 
 ```
 pnpm add zod@^4.0.0

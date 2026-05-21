@@ -8,15 +8,15 @@ export const RR_V3_KEEPALIVE_PORT_NAME = 'rr_v3_keepalive' as const;
 
 /** Keepalive 消息类型 */
 export type KeepaliveMessageType =
-  | 'keepalive.ping'
-  | 'keepalive.pong'
-  | 'keepalive.start'
-  | 'keepalive.stop';
+    | 'keepalive.ping'
+    | 'keepalive.pong'
+    | 'keepalive.start'
+    | 'keepalive.stop';
 
 /** Keepalive 消息 */
 export interface KeepaliveMessage {
-  type: KeepaliveMessageType;
-  timestamp: number;
+    type: KeepaliveMessageType;
+    timestamp: number;
 }
 
 /** 默认心跳间隔（毫秒） - Offscreen 每隔这个间隔发送 ping */

@@ -8,7 +8,7 @@ export type JsonPrimitive = string | number | boolean | null;
 
 /** JSON 对象类型 */
 export interface JsonObject {
-  [key: string]: JsonValue;
+    [key: string]: JsonValue;
 }
 
 /** JSON 数组类型 */

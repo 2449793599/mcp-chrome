@@ -8,19 +8,19 @@
 
     <div class="main">
       <Canvas
-        :nodes="store.nodes"
-        :edges="store.edges"
-        :node-errors="validation.nodeErrors"
-        :focus-node-id="focusNodeId"
-        :fit-seq="fitSeq"
-        @select-node="store.selectNode"
-        @select-edge="store.selectEdge"
-        @duplicate-node="store.duplicateNode"
-        @remove-node="store.removeNode"
-        @connect-from="store.connectFrom"
-        @connect="store.onConnect"
-        @node-dragged="store.setNodePosition"
-        @add-node-at="onAddNodeAt"
+          :nodes="store.nodes"
+          :edges="store.edges"
+          :node-errors="validation.nodeErrors"
+          :focus-node-id="focusNodeId"
+          :fit-seq="fitSeq"
+          @select-node="store.selectNode"
+          @select-edge="store.selectEdge"
+          @duplicate-node="store.duplicateNode"
+          @remove-node="store.removeNode"
+          @connect-from="store.connectFrom"
+          @connect="store.onConnect"
+          @node-dragged="store.setNodePosition"
+          @add-node-at="onAddNodeAt"
       />
 
       <div class="topbar rr-topbar backdrop-blur">
@@ -31,110 +31,110 @@
         <div class="right">
           <button class="top-btn" @click="exportFlow" title="导出 JSON">
             <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
             >
-              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
             </svg>
             导出
           </button>
           <label class="top-btn import" title="导入 JSON">
             <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
             >
-              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
             </svg>
             导入
-            <input type="file" accept="application/json" @change="onImport" />
+            <input type="file" accept="application/json" @change="onImport"/>
           </label>
           <button class="top-btn" @click="openRename" title="重命名工作流">
             <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
             >
-              <path d="M12 20h9" />
-              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z" />
+              <path d="M12 20h9"/>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z"/>
             </svg>
             Rename
           </button>
           <button
-            class="top-btn"
-            :class="{ active: triggerPanelVisible }"
-            @click="triggerPanelVisible = !triggerPanelVisible"
-            title="管理触发器"
+              class="top-btn"
+              :class="{ active: triggerPanelVisible }"
+              @click="triggerPanelVisible = !triggerPanelVisible"
+              title="管理触发器"
           >
             <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
             >
-              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
             </svg>
             Triggers
           </button>
-          <span class="divider-vert" />
+          <span class="divider-vert"/>
           <button
-            class="top-btn"
-            :disabled="!selectedId"
-            @click="runFromSelected"
-            title="从选中节点回放"
+              class="top-btn"
+              :disabled="!selectedId"
+              @click="runFromSelected"
+              title="从选中节点回放"
           >
             <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
             >
-              <polygon points="5 3 19 12 5 21 5 3" />
+              <polygon points="5 3 19 12 5 21 5 3"/>
             </svg>
             从选中运行
           </button>
           <button class="top-btn primary" @click="runAll" title="从头回放整流">
             <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
             >
-              <polygon points="5 3 19 12 5 21 5 3" />
+              <polygon points="5 3 19 12 5 21 5 3"/>
             </svg>
             运行
           </button>
-          <span class="divider-vert" />
+          <span class="divider-vert"/>
           <span class="status" :data-state="saveState">{{ saveLabel }}</span>
 
           <button class="top-btn success" @click="save">
             <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
             >
-              <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" />
-              <polyline points="17 21 17 13 7 13 7 21" />
-              <polyline points="7 3 7 8 15 8" />
+              <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+              <polyline points="17 21 17 13 7 13 7 21"/>
+              <polyline points="7 3 7 8 15 8"/>
             </svg>
             保存
           </button>
@@ -142,96 +142,96 @@
       </div>
 
       <Sidebar
-        class="floating-sidebar"
-        :flow="store.flowLocal"
-        :palette-types="store.paletteTypes"
-        :subflow-ids="store.listSubflowIds()"
-        :current-subflow-id="currentSubflowIdVal"
-        @add-node="store.addNode"
-        @switch-main="store.switchToMain"
-        @switch-subflow="store.switchToSubflow"
-        @add-subflow="store.addSubflow"
-        @remove-subflow="store.removeSubflow"
+          class="floating-sidebar"
+          :flow="store.flowLocal"
+          :palette-types="store.paletteTypes"
+          :subflow-ids="store.listSubflowIds()"
+          :current-subflow-id="currentSubflowIdVal"
+          @add-node="store.addNode"
+          @switch-main="store.switchToMain"
+          @switch-subflow="store.switchToSubflow"
+          @add-subflow="store.addSubflow"
+          @remove-subflow="store.removeSubflow"
       />
 
       <PropertyPanel
-        v-if="activeNode"
-        class="floating-property"
-        :node="activeNode"
-        :variables="availableVars"
-        :highlight-field="highlightField"
-        :subflow-ids="store.listSubflowIds()"
-        @remove-node="store.removeNode"
-        @create-subflow="store.addSubflow"
-        @switch-to-subflow="store.switchToSubflow"
+          v-if="activeNode"
+          class="floating-property"
+          :node="activeNode"
+          :variables="availableVars"
+          :highlight-field="highlightField"
+          :subflow-ids="store.listSubflowIds()"
+          @remove-node="store.removeNode"
+          @create-subflow="store.addSubflow"
+          @switch-to-subflow="store.switchToSubflow"
       />
       <EdgePropertyPanel
-        v-else-if="activeEdge"
-        class="floating-property"
-        :edge="activeEdge"
-        :nodes="store.nodes"
-        @remove-edge="store.removeEdge"
+          v-else-if="activeEdge"
+          class="floating-property"
+          :edge="activeEdge"
+          :nodes="store.nodes"
+          @remove-edge="store.removeEdge"
       />
 
       <TriggerPanel
-        v-if="triggerPanelVisible && store.flowLocal?.id"
-        class="floating-trigger"
-        :flow-id="store.flowLocal.id"
-        @close="triggerPanelVisible = false"
+          v-if="triggerPanelVisible && store.flowLocal?.id"
+          class="floating-trigger"
+          :flow-id="store.flowLocal.id"
+          @close="triggerPanelVisible = false"
       />
 
       <div class="bottom-toolbar">
         <button class="toolbar-btn" @click="store.undo" title="撤销 (⌘/Ctrl+Z)">
           <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
           >
-            <path d="M3 7v6h6M21 17a9 9 0 00-9-9 9 9 0 00-9 9" />
+            <path d="M3 7v6h6M21 17a9 9 0 00-9-9 9 9 0 00-9 9"/>
           </svg>
         </button>
         <button class="toolbar-btn" @click="store.redo" title="重做 (⌘/Ctrl+Shift+Z)">
           <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
           >
-            <path d="M21 7v6h-6M3 17a9 9 0 019-9 9 9 0 019 9" />
+            <path d="M21 7v6h-6M3 17a9 9 0 019-9 9 9 0 019 9"/>
           </svg>
         </button>
-        <span class="toolbar-divider" />
+        <span class="toolbar-divider"/>
         <button class="toolbar-btn" @click="store.layoutAuto" title="自动排版">
           <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
           >
-            <rect x="3" y="3" width="7" height="7" rx="1" />
-            <rect x="14" y="3" width="7" height="7" rx="1" />
-            <rect x="14" y="14" width="7" height="7" rx="1" />
-            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="3" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="14" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
           </svg>
         </button>
         <button class="toolbar-btn" @click="fitAll" title="自适应视图">
           <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
           >
             <path
-              d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"
+                d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"
             />
           </svg>
         </button>
@@ -254,7 +254,7 @@
       <div class="rr-body">
         <div class="row">
           <label>名称</label>
-          <input v-model="renameName" placeholder="工作流名称" />
+          <input v-model="renameName" placeholder="工作流名称"/>
         </div>
         <div class="row">
           <label>描述</label>
@@ -270,17 +270,17 @@
 
 <script lang="ts" setup>
 // Dedicated full-page builder using the same inner components as popup modal
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
-import type { Flow as FlowV2 } from '@/entrypoints/background/record-replay/types';
-import type { FlowV3 } from '@/entrypoints/background/record-replay-v3/domain/flow';
+import {computed, onMounted, onUnmounted, ref, watch} from 'vue';
+import type {Flow as FlowV2} from '@/entrypoints/background/record-replay/types';
+import type {FlowV3} from '@/entrypoints/background/record-replay-v3/domain/flow';
 import type {
   FlowId,
   NodeId,
   TriggerId,
 } from '@/entrypoints/background/record-replay-v3/domain/ids';
-import type { JsonObject } from '@/entrypoints/background/record-replay-v3/domain/json';
-import type { TriggerSpec } from '@/entrypoints/background/record-replay-v3/domain/triggers';
-import { useRRV3Rpc } from '@/entrypoints/shared/composables';
+import type {JsonObject} from '@/entrypoints/background/record-replay-v3/domain/json';
+import type {TriggerSpec} from '@/entrypoints/background/record-replay-v3/domain/triggers';
+import {useRRV3Rpc} from '@/entrypoints/shared/composables';
 import {
   flowV2ToV3ForRpc,
   flowV3ToV2ForBuilder,
@@ -288,8 +288,8 @@ import {
   extractFlowCandidates,
 } from '@/entrypoints/shared/utils';
 
-import { useBuilderStore } from '@/entrypoints/popup/components/builder/store/useBuilderStore';
-import { validateFlow } from '@/entrypoints/popup/components/builder/model/validation';
+import {useBuilderStore} from '@/entrypoints/popup/components/builder/store/useBuilderStore';
+import {validateFlow} from '@/entrypoints/popup/components/builder/model/validation';
 import Canvas from '@/entrypoints/popup/components/builder/components/Canvas.vue';
 import Sidebar from '@/entrypoints/popup/components/builder/components/Sidebar.vue';
 import PropertyPanel from '@/entrypoints/popup/components/builder/components/PropertyPanel.vue';
@@ -299,15 +299,18 @@ import TriggerPanel from '@/entrypoints/popup/components/builder/components/Trig
 const title = ref('工作流编辑器');
 // theme state: persisted in localStorage and default to system preference
 const theme = ref<'light' | 'dark'>(
-  (localStorage.getItem('rr-theme') as 'light' | 'dark' | null) ||
+    (localStorage.getItem('rr-theme') as 'light' | 'dark' | null) ||
     (matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
 );
+
 function toggleTheme() {
   theme.value = theme.value === 'dark' ? 'light' : 'dark';
   try {
     localStorage.setItem('rr-theme', theme.value);
-  } catch {}
+  } catch {
+  }
 }
+
 const store = useBuilderStore();
 
 // V3 RPC client
@@ -319,22 +322,26 @@ const rpc = useRRV3Rpc({
 // toast event bus (listen to rr_toast)
 type ToastItem = { id: string; message: string; level: 'info' | 'warn' | 'error' };
 const toasts = ref<ToastItem[]>([]);
+
 function pushToast(message: string, level: 'info' | 'warn' | 'error' = 'warn') {
   const id = `toast_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
-  const item: ToastItem = { id, message, level };
+  const item: ToastItem = {id, message, level};
   toasts.value.push(item);
   setTimeout(() => {
     const idx = toasts.value.findIndex((x) => x.id === id);
     if (idx >= 0) toasts.value.splice(idx, 1);
   }, 2500);
 }
+
 function onToast(ev: any) {
   try {
     const msg = String(ev?.detail?.message || '');
     const level = (ev?.detail?.level || 'warn') as any;
     if (msg) pushToast(msg, level);
-  } catch {}
+  } catch {
+  }
 }
+
 onMounted(() => window.addEventListener('rr_toast', onToast as any));
 onUnmounted(() => window.removeEventListener('rr_toast', onToast as any));
 
@@ -356,7 +363,7 @@ async function bootstrap() {
       })) as FlowV3 | null;
 
       if (flowV3) {
-        const { flow: flowV2, warnings } = flowV3ToV2ForBuilder(flowV3);
+        const {flow: flowV2, warnings} = flowV3ToV2ForBuilder(flowV3);
         warnings.forEach((w) => pushToast(w, 'warn'));
         store.initFromFlow(flowV2);
         title.value = `编辑：${flowV2.name || flowV2.id}`;
@@ -367,7 +374,8 @@ async function bootstrap() {
               store.selectNode(q.focus!);
               (focusNodeId as any).value = q.focus!;
               setTimeout(() => ((focusNodeId as any).value = null), 300);
-            } catch {}
+            } catch {
+            }
           }, 0);
         }
       } else {
@@ -417,10 +425,11 @@ const availableVars = computed(() => store.listAvailableVariables(selectedId.val
 const search = ref('');
 const focusNodeId = ref<string | null>(null);
 const currentSubflowIdVal = computed<string | null>(
-  () => (store.currentSubflowId as any)?.value ?? null,
+    () => (store.currentSubflowId as any)?.value ?? null,
 );
 const highlightField = ref<string | null>(null);
 const fitSeq = ref(0);
+
 function focusSearch() {
   const q = search.value.trim().toLowerCase();
   if (!q) return;
@@ -448,11 +457,14 @@ function focusSearch() {
     setTimeout(() => (focusNodeId.value = null), 300);
   }
 }
+
 function onAddNodeAt(type: string, x: number, y: number) {
   try {
     store.addNodeAt(type as any, x, y);
-  } catch {}
+  } catch {
+  }
 }
+
 function fitAll() {
   fitSeq.value++;
 }
@@ -464,11 +476,13 @@ const triggerPanelVisible = ref(false);
 const renameVisible = ref(false);
 const renameName = ref('');
 const renameDesc = ref('');
+
 function openRename() {
   renameName.value = store.flowLocal.name || '';
   renameDesc.value = (store.flowLocal as any).description || '';
   renameVisible.value = true;
 }
+
 function applyRename() {
   store.flowLocal.name = renameName.value.trim();
   (store.flowLocal as any).description = renameDesc.value;
@@ -489,7 +503,7 @@ async function save(): Promise<FlowV3 | null> {
     await rpc.ensureConnected();
 
     // Convert V2 -> V3 for RPC
-    const { flow: flowV3, warnings: convWarnings } = flowV2ToV3ForRpc(flowV2);
+    const {flow: flowV3, warnings: convWarnings} = flowV2ToV3ForRpc(flowV2);
     convWarnings.forEach((w) => pushToast(w, 'warn'));
 
     // Save via RPC (cast FlowV3 to JsonObject for RPC compatibility)
@@ -507,7 +521,8 @@ async function save(): Promise<FlowV3 | null> {
     // Sync triggers (best-effort, don't block save result)
     try {
       await syncTriggersAndSchedules(flowV2.id, flowV2.nodes || []);
-    } catch {}
+    } catch {
+    }
 
     return saved;
   } catch (e) {
@@ -591,8 +606,8 @@ async function syncTriggersAndSchedules(flowId: string, nodes: unknown[]) {
         flowId: flowId as FlowId,
         title: cfg.contextMenu.title,
         contexts: (Array.isArray(cfg.contextMenu.contexts)
-          ? cfg.contextMenu.contexts
-          : ['all']
+                ? cfg.contextMenu.contexts
+                : ['all']
         ).map(String),
       });
     }
@@ -631,13 +646,13 @@ async function syncTriggersAndSchedules(flowId: string, nodes: unknown[]) {
           const scheduleType = String(s?.type || 'unknown');
           if (scheduleType === 'once') {
             pushToast(
-              `节点 ${n.id} 的定时 #${i + 1}: V3 暂不支持一次性定时（once），已跳过`,
-              'warn',
+                `节点 ${n.id} 的定时 #${i + 1}: V3 暂不支持一次性定时（once），已跳过`,
+                'warn',
             );
           } else {
             pushToast(
-              `节点 ${n.id} 的定时 #${i + 1}: 无法转换为 cron（type=${scheduleType}），已跳过`,
-              'warn',
+                `节点 ${n.id} 的定时 #${i + 1}: 无法转换为 cron（type=${scheduleType}），已跳过`,
+                'warn',
             );
           }
           return;
@@ -671,9 +686,9 @@ async function syncTriggersAndSchedules(flowId: string, nodes: unknown[]) {
       // Cast TriggerSpec to JsonObject for RPC compatibility
       const triggerPayload = trigger as unknown as JsonObject;
       if (existingById.has(trigger.id)) {
-        await rpc.request('rr_v3.updateTrigger', { trigger: triggerPayload });
+        await rpc.request('rr_v3.updateTrigger', {trigger: triggerPayload});
       } else {
-        await rpc.request('rr_v3.createTrigger', { trigger: triggerPayload });
+        await rpc.request('rr_v3.createTrigger', {trigger: triggerPayload});
       }
     }
 
@@ -681,11 +696,11 @@ async function syncTriggersAndSchedules(flowId: string, nodes: unknown[]) {
     // Node-managed trigger IDs have prefixes: trg_{flowId}_ or sch_{flowId}_
     const nodeManagedPrefixes = [`trg_${flowId}_`, `sch_${flowId}_`];
     const isNodeManaged = (triggerId: string) =>
-      nodeManagedPrefixes.some((prefix) => triggerId.startsWith(prefix));
+        nodeManagedPrefixes.some((prefix) => triggerId.startsWith(prefix));
 
     for (const existing of existingById.values()) {
       if (!neededIds.has(existing.id) && isNodeManaged(existing.id)) {
-        await rpc.request('rr_v3.deleteTrigger', { triggerId: existing.id });
+        await rpc.request('rr_v3.deleteTrigger', {triggerId: existing.id});
       }
     }
   } catch (e) {
@@ -701,7 +716,7 @@ async function exportFlow() {
     if (!saved) return;
 
     // Export the V3 flow directly (no need for separate RPC call)
-    const blob = new Blob([JSON.stringify(saved, null, 2)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify(saved, null, 2)], {type: 'application/json'});
     const url = URL.createObjectURL(blob);
     await chrome.downloads.download({
       url,
@@ -738,7 +753,7 @@ async function onImport(e: Event) {
         flow: first as unknown as JsonObject,
       })) as unknown as FlowV3;
 
-      const { flow: flowV2, warnings } = flowV3ToV2ForBuilder(saved);
+      const {flow: flowV2, warnings} = flowV3ToV2ForBuilder(saved);
       warnings.forEach((w) => pushToast(w, 'warn'));
       store.initFromFlow(flowV2);
       title.value = `编辑：${flowV2.name || flowV2.id}`;
@@ -746,15 +761,16 @@ async function onImport(e: Event) {
       // Sync triggers
       try {
         await syncTriggersAndSchedules(flowV2.id, flowV2.nodes || []);
-      } catch {}
+      } catch {
+      }
     } else {
       // V2 format: load directly, then save to convert to V3
       store.initFromFlow(first as FlowV2);
 
       // If V2 flow has steps but no nodes, trigger conversion
       if (
-        Array.isArray((first as any)?.steps) &&
-        (!Array.isArray((first as any)?.nodes) || (first as any).nodes.length === 0)
+          Array.isArray((first as any)?.steps) &&
+          (!Array.isArray((first as any)?.nodes) || (first as any).nodes.length === 0)
       ) {
         store.importFromSteps();
       }
@@ -784,7 +800,7 @@ async function runFromSelected() {
 
     await rpc.request('rr_v3.enqueueRun', {
       flowId: saved.id as FlowId,
-      ...(startNodeId ? { startNodeId: startNodeId as NodeId } : {}),
+      ...(startNodeId ? {startNodeId: startNodeId as NodeId} : {}),
     });
   } catch (e) {
     pushToast(`运行失败：${e instanceof Error ? e.message : String(e)}`, 'error');
@@ -799,7 +815,7 @@ async function runAll() {
     if (!saved) return;
 
     await rpc.ensureConnected();
-    await rpc.request('rr_v3.enqueueRun', { flowId: saved.id as FlowId });
+    await rpc.request('rr_v3.enqueueRun', {flowId: saved.id as FlowId});
   } catch (e) {
     pushToast(`运行失败：${e instanceof Error ? e.message : String(e)}`, 'error');
   }
@@ -815,11 +831,11 @@ function onKey(e: KeyboardEvent) {
   if (t) {
     const tag = (t.tagName || '').toLowerCase();
     const inEditable =
-      tag === 'input' ||
-      tag === 'textarea' ||
-      tag === 'select' ||
-      (t as HTMLElement).isContentEditable ||
-      !!t.closest('.floating-property');
+        tag === 'input' ||
+        tag === 'textarea' ||
+        tag === 'select' ||
+        (t as HTMLElement).isContentEditable ||
+        !!t.closest('.floating-property');
     if (inEditable) return;
   }
 
@@ -840,6 +856,7 @@ function onKey(e: KeyboardEvent) {
     save();
   }
 }
+
 onMounted(() => {
   document.addEventListener('keydown', onKey);
   bootstrap();
@@ -849,7 +866,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKey));
 // Auto save debounced
 const saveState = ref<'idle' | 'saving' | 'saved'>('idle');
 const saveLabel = computed(() =>
-  saveState.value === 'saving' ? '保存中…' : saveState.value === 'saved' ? '已保存' : '',
+    saveState.value === 'saving' ? '保存中…' : saveState.value === 'saved' ? '已保存' : '',
 );
 let saveTimer: ReturnType<typeof setTimeout> | null = null;
 let statusTimer: ReturnType<typeof setTimeout> | null = null;
@@ -873,14 +890,16 @@ function scheduleAutoSave() {
     }
   }, 800);
 }
+
 watch(
-  () => [store.nodes, store.edges, store.flowLocal.name, (store.flowLocal as any).description],
-  scheduleAutoSave,
-  { deep: true },
+    () => [store.nodes, store.edges, store.flowLocal.name, (store.flowLocal as any).description],
+    scheduleAutoSave,
+    {deep: true},
 );
 
 // Fallback suggestion from run logs
 const fallbackNotice = ref<{ nodeId: string; type: string; prevIndex: number } | null>(null);
+
 function applyFallbackPromotion(nodeId: string, toType: string) {
   const node = store.nodes.find((n) => n.id === nodeId);
   if (!node || (node.type !== 'click' && node.type !== 'fill')) return;
@@ -890,12 +909,13 @@ function applyFallbackPromotion(nodeId: string, toType: string) {
   if (idx > 0) {
     const cand = cands.splice(idx, 1)[0];
     cands.unshift(cand);
-    fallbackNotice.value = { nodeId, type: String(toType), prevIndex: idx };
+    fallbackNotice.value = {nodeId, type: String(toType), prevIndex: idx};
     focusNode(nodeId);
     highlightField.value = 'target.candidates';
     setTimeout(() => (highlightField.value = null), 1500);
   }
 }
+
 function undoFallbackPromotion() {
   const n = fallbackNotice.value;
   if (!n) return;
@@ -922,6 +942,7 @@ function focusNode(id: string) {
   focusNodeId.value = id;
   setTimeout(() => (focusNodeId.value = null), 300);
 }
+
 // per-node error indicators replace global error panel
 </script>
 
@@ -935,6 +956,7 @@ function focusNode(id: string) {
   flex-direction: column;
   color: var(--rr-text);
 }
+
 .topbar {
   position: absolute;
   top: 0;
@@ -950,6 +972,7 @@ function focusNode(id: string) {
   z-index: 20;
   pointer-events: none;
 }
+
 .topbar > * {
   pointer-events: auto;
 }
@@ -963,6 +986,7 @@ function focusNode(id: string) {
   flex-direction: column;
   gap: 8px;
 }
+
 .rr-toast {
   min-width: 180px;
   max-width: 360px;
@@ -974,28 +998,34 @@ function focusNode(id: string) {
   border: 1px solid #facc15;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
+
 .rr-toast[data-level='info'] {
   background: #e0f2fe;
   border-color: #38bdf8;
 }
+
 .rr-toast[data-level='error'] {
   background: #fee2e2;
   border-color: #ef4444;
 }
+
 .topbar .left {
   display: flex;
   gap: 8px;
   align-items: center;
 }
+
 .topbar .tip {
   color: var(--rr-muted);
   font-size: 12px;
 }
+
 .topbar .right {
   display: flex;
   gap: 8px;
   align-items: center;
 }
+
 .main {
   flex: 1;
   position: relative;
@@ -1004,6 +1034,7 @@ function focusNode(id: string) {
   width: 100%;
   height: 100%;
 }
+
 .floating-sidebar {
   position: absolute;
   left: 0;
@@ -1011,6 +1042,7 @@ function focusNode(id: string) {
   z-index: 10;
   pointer-events: auto;
 }
+
 .floating-property {
   position: absolute;
   right: 0;
@@ -1019,6 +1051,7 @@ function focusNode(id: string) {
   z-index: 10;
   pointer-events: auto;
 }
+
 .floating-trigger {
   position: absolute;
   right: 400px; /* offset from property panel */
@@ -1026,6 +1059,7 @@ function focusNode(id: string) {
   z-index: 10;
   pointer-events: auto;
 }
+
 .bottom-toolbar {
   position: absolute;
   left: 50%;
@@ -1041,6 +1075,7 @@ function focusNode(id: string) {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(8px);
 }
+
 .toolbar-btn {
   width: 36px;
   height: 36px;
@@ -1054,19 +1089,23 @@ function focusNode(id: string) {
   cursor: pointer;
   transition: all 0.15s;
 }
+
 .toolbar-btn:hover {
   background: var(--rr-hover);
   color: var(--rr-text);
 }
+
 .toolbar-btn:active {
   transform: scale(0.95);
 }
+
 .toolbar-divider {
   width: 1px;
   height: 24px;
   background: var(--rr-border);
   margin: 0 4px;
 }
+
 .top-btn {
   display: flex;
   align-items: center;
@@ -1081,74 +1120,90 @@ function focusNode(id: string) {
   cursor: pointer;
   transition: all 0.15s;
 }
+
 .top-btn:hover:not(:disabled) {
   background: var(--rr-hover);
   border-color: var(--rr-text-weak);
   transform: translateY(-1px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
+
 .top-btn:active:not(:disabled) {
   transform: translateY(0);
 }
+
 .top-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
 .top-btn.active {
   background: var(--rr-accent);
   color: #fff;
   border-color: var(--rr-accent);
 }
+
 .top-btn.primary {
   background: var(--rr-accent);
   color: #fff;
   border-color: var(--rr-accent);
 }
+
 .top-btn.primary:hover {
   background: #2563eb;
   border-color: #2563eb;
 }
+
 .top-btn.success {
   background: #10b981;
   color: #fff;
   border-color: #10b981;
 }
+
 .top-btn.success:hover {
   background: #059669;
   border-color: #059669;
 }
+
 .top-btn.danger {
   background: rgba(239, 68, 68, 0.1);
   color: var(--rr-danger);
   border-color: rgba(239, 68, 68, 0.3);
 }
+
 .top-btn.danger:hover {
   background: rgba(239, 68, 68, 0.2);
   border-color: var(--rr-danger);
 }
+
 .top-btn.ghost {
   border: none;
   background: transparent;
 }
+
 .top-btn.ghost:hover {
   background: var(--rr-hover);
 }
+
 .top-btn.import {
   position: relative;
   overflow: hidden;
 }
+
 .top-btn.import input {
   position: absolute;
   inset: 0;
   opacity: 0;
   cursor: pointer;
 }
+
 .divider-vert {
   width: 1px;
   height: 24px;
   background: var(--rr-border);
   margin: 0 8px;
 }
+
 .topbar .status {
   color: var(--rr-muted);
   font-size: 12px;
@@ -1156,16 +1211,19 @@ function focusNode(id: string) {
   min-width: 48px;
   display: inline-block;
 }
+
 .btn.import {
   position: relative;
   overflow: hidden;
 }
+
 .btn.import input {
   position: absolute;
   inset: 0;
   opacity: 0;
   cursor: pointer;
 }
+
 .notice-top {
   background: var(--rr-brand-strong);
   color: #fff;
@@ -1174,11 +1232,13 @@ function focusNode(id: string) {
   align-items: center;
   gap: 8px;
 }
+
 .notice-top .mini {
   background: var(--rr-card);
   border: 1px solid var(--rr-border);
   color: var(--rr-text);
 }
+
 /* removed legacy error-panel styles */
 
 /* dialog styles (aligned with popup ScheduleDialog) */
@@ -1191,6 +1251,7 @@ function focusNode(id: string) {
   align-items: center;
   justify-content: center;
 }
+
 .rr-dialog {
   background: #fff;
   border-radius: 8px;
@@ -1200,9 +1261,11 @@ function focusNode(id: string) {
   display: flex;
   flex-direction: column;
 }
+
 .rr-dialog.small {
   width: 520px;
 }
+
 .rr-header {
   display: flex;
   justify-content: space-between;
@@ -1210,9 +1273,11 @@ function focusNode(id: string) {
   padding: 12px 16px;
   border-bottom: 1px solid #e5e7eb;
 }
+
 .rr-header .title {
   font-weight: 600;
 }
+
 .rr-header .close {
   border: none;
   background: #f3f4f6;
@@ -1220,10 +1285,12 @@ function focusNode(id: string) {
   padding: 4px 8px;
   cursor: pointer;
 }
+
 .rr-body {
   padding: 12px 16px;
   overflow: auto;
 }
+
 .rr-footer {
   padding: 12px 16px;
   border-top: 1px solid #e5e7eb;
@@ -1231,6 +1298,7 @@ function focusNode(id: string) {
   justify-content: flex-end;
   gap: 8px;
 }
+
 .rr-footer .primary {
   background: #2563eb;
   color: #fff;
@@ -1239,16 +1307,19 @@ function focusNode(id: string) {
   padding: 8px 14px;
   cursor: pointer;
 }
+
 .row {
   display: flex;
   gap: 8px;
   align-items: center;
   margin: 6px 0;
 }
+
 .row > label {
   width: 88px;
   color: #374151;
 }
+
 .row > input,
 .row > textarea {
   flex: 1;
@@ -1256,6 +1327,7 @@ function focusNode(id: string) {
   border-radius: 6px;
   padding: 6px 8px;
 }
+
 .row > textarea {
   min-height: 64px;
 }

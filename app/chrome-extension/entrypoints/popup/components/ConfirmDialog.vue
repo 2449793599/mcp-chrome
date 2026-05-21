@@ -23,9 +23,9 @@
           {{ cancelText }}
         </button>
         <button
-          class="dialog-button confirm-button"
-          :disabled="isConfirming"
-          @click="$emit('confirm')"
+            class="dialog-button confirm-button"
+            :disabled="isConfirming"
+            @click="$emit('confirm')"
         >
           {{ isConfirming ? confirmingText : confirmText }}
         </button>
@@ -35,7 +35,8 @@
 </template>
 
 <script lang="ts" setup>
-import { getMessage } from '@/utils/i18n';
+import {getMessage} from '@/utils/i18n';
+
 interface Props {
   visible: boolean;
   title: string;
@@ -51,6 +52,7 @@ interface Props {
 
 interface Emits {
   (e: 'confirm'): void;
+
   (e: 'cancel'): void;
 }
 

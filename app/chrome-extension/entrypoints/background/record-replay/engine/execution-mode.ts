@@ -10,7 +10,7 @@
  * - 'hybrid': Try ActionRegistry first, fall back to legacy for unsupported types
  */
 
-import type { Step } from '../types';
+import type {Step} from '../types';
 
 /**
  * Execution mode determines how steps are executed
@@ -21,47 +21,47 @@ export type ExecutionMode = 'legacy' | 'actions' | 'hybrid';
  * Configuration for execution mode
  */
 export interface ExecutionModeConfig {
-  /**
-   * The execution mode to use
-   * @default 'legacy'
-   */
-  mode: ExecutionMode;
+    /**
+     * The execution mode to use
+     * @default 'legacy'
+     */
+    mode: ExecutionMode;
 
-  /**
-   * Step types that should always use legacy execution (denylist for actions)
-   * Only applies in hybrid mode
-   */
-  legacyOnlyTypes?: Set<string>;
+    /**
+     * Step types that should always use legacy execution (denylist for actions)
+     * Only applies in hybrid mode
+     */
+    legacyOnlyTypes?: Set<string>;
 
-  /**
-   * Step types that should use actions execution (allowlist)
-   * Only applies in hybrid mode.
-   * - If undefined: uses MINIMAL_HYBRID_ACTION_TYPES (safest default)
-   * - If empty Set (size=0): falls back to MIGRATED_ACTION_TYPES policy
-   * - If non-empty Set: only these types use actions
-   */
-  actionsAllowlist?: Set<string>;
+    /**
+     * Step types that should use actions execution (allowlist)
+     * Only applies in hybrid mode.
+     * - If undefined: uses MINIMAL_HYBRID_ACTION_TYPES (safest default)
+     * - If empty Set (size=0): falls back to MIGRATED_ACTION_TYPES policy
+     * - If non-empty Set: only these types use actions
+     */
+    actionsAllowlist?: Set<string>;
 
-  /**
-   * Whether to log when falling back from actions to legacy in hybrid mode
-   * @default true
-   */
-  logFallbacks?: boolean;
+    /**
+     * Whether to log when falling back from actions to legacy in hybrid mode
+     * @default true
+     */
+    logFallbacks?: boolean;
 
-  /**
-   * Skip ActionRegistry's built-in retry policy.
-   * When true, action.policy.retry is removed before execution.
-   * @default true - StepRunner already handles retry via withRetry()
-   *
-   * Note: ActionRegistry timeout is NOT disabled (provides per-action timeout safety).
-   */
-  skipActionsRetry?: boolean;
+    /**
+     * Skip ActionRegistry's built-in retry policy.
+     * When true, action.policy.retry is removed before execution.
+     * @default true - StepRunner already handles retry via withRetry()
+     *
+     * Note: ActionRegistry timeout is NOT disabled (provides per-action timeout safety).
+     */
+    skipActionsRetry?: boolean;
 
-  /**
-   * Skip ActionRegistry's navigation waiting when StepRunner handles it
-   * @default true - StepRunner already handles navigation waiting
-   */
-  skipActionsNavWait?: boolean;
+    /**
+     * Skip ActionRegistry's navigation waiting when StepRunner handles it
+     * @default true - StepRunner already handles navigation waiting
+     */
+    skipActionsNavWait?: boolean;
 }
 
 /**
@@ -69,10 +69,10 @@ export interface ExecutionModeConfig {
  * Starts with legacy mode for maximum safety during migration
  */
 export const DEFAULT_EXECUTION_MODE_CONFIG: ExecutionModeConfig = {
-  mode: 'legacy',
-  logFallbacks: true,
-  skipActionsRetry: true,
-  skipActionsNavWait: true,
+    mode: 'legacy',
+    logFallbacks: true,
+    skipActionsRetry: true,
+    skipActionsNavWait: true,
 };
 
 /**
@@ -88,14 +88,14 @@ export const DEFAULT_EXECUTION_MODE_CONFIG: ExecutionModeConfig = {
  * - Simple input/output semantics
  */
 export const MINIMAL_HYBRID_ACTION_TYPES = new Set<string>([
-  'fill', // Form input - no navigation
-  'key', // Keyboard input - no navigation
-  'scroll', // Viewport manipulation - no navigation
-  'drag', // Drag and drop - local operation
-  'wait', // Condition waiting - no side effects
-  'delay', // Simple delay - no side effects
-  'screenshot', // Capture only - no side effects
-  'assert', // Validation only - no side effects
+    'fill', // Form input - no navigation
+    'key', // Keyboard input - no navigation
+    'scroll', // Viewport manipulation - no navigation
+    'drag', // Drag and drop - local operation
+    'wait', // Condition waiting - no side effects
+    'delay', // Simple delay - no side effects
+    'screenshot', // Capture only - no side effects
+    'assert', // Validation only - no side effects
 ]);
 
 /**
@@ -111,22 +111,22 @@ export const MINIMAL_HYBRID_ACTION_TYPES = new Set<string>([
  * 3. No timing-sensitive dependencies (like script when:'after' defer)
  */
 export const MIGRATED_ACTION_TYPES = new Set<string>([
-  // Navigation - well tested, simple mapping
-  'navigate',
-  // Interaction - well tested, core functionality
-  'click',
-  'dblclick',
-  'fill',
-  'key',
-  'scroll',
-  'drag',
-  // Timing - simple logic, no complex state
-  'wait',
-  'delay',
-  // Screenshot - simple, no side effects
-  'screenshot',
-  // Assert - validation only, no state changes
-  'assert',
+    // Navigation - well tested, simple mapping
+    'navigate',
+    // Interaction - well tested, core functionality
+    'click',
+    'dblclick',
+    'fill',
+    'key',
+    'scroll',
+    'drag',
+    // Timing - simple logic, no complex state
+    'wait',
+    'delay',
+    // Screenshot - simple, no side effects
+    'screenshot',
+    // Assert - validation only, no state changes
+    'assert',
 ]);
 
 /**
@@ -134,22 +134,22 @@ export const MIGRATED_ACTION_TYPES = new Set<string>([
  * These are supported by ActionRegistry but may have behavior differences
  */
 export const NEEDS_VALIDATION_TYPES = new Set<string>([
-  // Data extraction - need to verify selector/js mode equivalence
-  'extract',
-  // HTTP - body type handling may differ
-  'http',
-  // Script - when:'after' defer semantics differ from legacy
-  'script',
-  // Tabs - tabId tracking needs careful integration
-  'openTab',
-  'switchTab',
-  'closeTab',
-  'handleDownload',
-  // Control flow - condition evaluation may differ
-  'if',
-  'foreach',
-  'while',
-  'switchFrame',
+    // Data extraction - need to verify selector/js mode equivalence
+    'extract',
+    // HTTP - body type handling may differ
+    'http',
+    // Script - when:'after' defer semantics differ from legacy
+    'script',
+    // Tabs - tabId tracking needs careful integration
+    'openTab',
+    'switchTab',
+    'closeTab',
+    'handleDownload',
+    // Control flow - condition evaluation may differ
+    'if',
+    'foreach',
+    'while',
+    'switchFrame',
 ]);
 
 /**
@@ -157,40 +157,40 @@ export const NEEDS_VALIDATION_TYPES = new Set<string>([
  * These have complex integration requirements not yet supported by ActionRegistry
  */
 export const LEGACY_ONLY_TYPES = new Set<string>([
-  // Complex legacy types not yet migrated
-  'triggerEvent',
-  'setAttribute',
-  'loopElements',
-  'executeFlow',
+    // Complex legacy types not yet migrated
+    'triggerEvent',
+    'setAttribute',
+    'loopElements',
+    'executeFlow',
 ]);
 
 /**
  * Determine whether a step should use actions execution based on config
  */
 export function shouldUseActions(step: Step, config: ExecutionModeConfig): boolean {
-  if (config.mode === 'legacy') {
-    return false;
-  }
+    if (config.mode === 'legacy') {
+        return false;
+    }
 
-  if (config.mode === 'actions') {
-    return true;
-  }
+    if (config.mode === 'actions') {
+        return true;
+    }
 
-  // Hybrid mode: check allowlist/denylist
-  const stepType = step.type;
+    // Hybrid mode: check allowlist/denylist
+    const stepType = step.type;
 
-  // Denylist takes precedence
-  if (config.legacyOnlyTypes?.has(stepType)) {
-    return false;
-  }
+    // Denylist takes precedence
+    if (config.legacyOnlyTypes?.has(stepType)) {
+        return false;
+    }
 
-  // If allowlist is specified and non-empty, step must be in it
-  if (config.actionsAllowlist && config.actionsAllowlist.size > 0) {
-    return config.actionsAllowlist.has(stepType);
-  }
+    // If allowlist is specified and non-empty, step must be in it
+    if (config.actionsAllowlist && config.actionsAllowlist.size > 0) {
+        return config.actionsAllowlist.has(stepType);
+    }
 
-  // Default to using actions for supported types
-  return MIGRATED_ACTION_TYPES.has(stepType);
+    // Default to using actions for supported types
+    return MIGRATED_ACTION_TYPES.has(stepType);
 }
 
 /**
@@ -206,13 +206,13 @@ export function shouldUseActions(step: Step, config: ExecutionModeConfig): boole
  *   If undefined, uses MINIMAL_HYBRID_ACTION_TYPES (safest default).
  */
 export function createHybridConfig(overrides?: Partial<ExecutionModeConfig>): ExecutionModeConfig {
-  return {
-    ...DEFAULT_EXECUTION_MODE_CONFIG,
-    mode: 'hybrid',
-    legacyOnlyTypes: new Set(LEGACY_ONLY_TYPES),
-    actionsAllowlist: new Set(MINIMAL_HYBRID_ACTION_TYPES),
-    ...overrides,
-  };
+    return {
+        ...DEFAULT_EXECUTION_MODE_CONFIG,
+        mode: 'hybrid',
+        legacyOnlyTypes: new Set(LEGACY_ONLY_TYPES),
+        actionsAllowlist: new Set(MINIMAL_HYBRID_ACTION_TYPES),
+        ...overrides,
+    };
 }
 
 /**
@@ -224,14 +224,14 @@ export function createHybridConfig(overrides?: Partial<ExecutionModeConfig>): Ex
  * and avoids double-strategy issues.
  */
 export function createActionsOnlyConfig(
-  overrides?: Partial<ExecutionModeConfig>,
+    overrides?: Partial<ExecutionModeConfig>,
 ): ExecutionModeConfig {
-  return {
-    ...DEFAULT_EXECUTION_MODE_CONFIG,
-    mode: 'actions',
-    // Keep StepRunner as policy authority - skip ActionRegistry's internal policies
-    skipActionsRetry: true,
-    skipActionsNavWait: true,
-    ...overrides,
-  };
+    return {
+        ...DEFAULT_EXECUTION_MODE_CONFIG,
+        mode: 'actions',
+        // Keep StepRunner as policy authority - skip ActionRegistry's internal policies
+        skipActionsRetry: true,
+        skipActionsNavWait: true,
+        ...overrides,
+    };
 }

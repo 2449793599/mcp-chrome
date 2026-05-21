@@ -19,29 +19,29 @@
  * Build output: .output/chrome-mv3/web-editor-v2.js
  */
 
-import { WEB_EDITOR_V2_LOG_PREFIX } from './web-editor-v2/constants';
-import { createWebEditorV2 } from './web-editor-v2/core/editor';
-import { installMessageListener } from './web-editor-v2/core/message-listener';
+import {WEB_EDITOR_V2_LOG_PREFIX} from './web-editor-v2/constants';
+import {createWebEditorV2} from './web-editor-v2/core/editor';
+import {installMessageListener} from './web-editor-v2/core/message-listener';
 
 export default defineUnlistedScript(() => {
-  // Phase 1: Only support top frame
-  // Phase 4 will add iframe support via content injection
-  if (window !== window.top) {
-    return;
-  }
+    // Phase 1: Only support top frame
+    // Phase 4 will add iframe support via content injection
+    if (window !== window.top) {
+        return;
+    }
 
-  // Singleton guard: prevent multiple instances
-  if (window.__MCP_WEB_EDITOR_V2__) {
-    console.log(`${WEB_EDITOR_V2_LOG_PREFIX} Already installed, skipping initialization`);
-    return;
-  }
+    // Singleton guard: prevent multiple instances
+    if (window.__MCP_WEB_EDITOR_V2__) {
+        console.log(`${WEB_EDITOR_V2_LOG_PREFIX} Already installed, skipping initialization`);
+        return;
+    }
 
-  // Create and expose the API
-  const api = createWebEditorV2();
-  window.__MCP_WEB_EDITOR_V2__ = api;
+    // Create and expose the API
+    const api = createWebEditorV2();
+    window.__MCP_WEB_EDITOR_V2__ = api;
 
-  // Install message listener for background communication
-  installMessageListener(api);
+    // Install message listener for background communication
+    installMessageListener(api);
 
-  console.log(`${WEB_EDITOR_V2_LOG_PREFIX} Installed successfully`);
+    console.log(`${WEB_EDITOR_V2_LOG_PREFIX} Installed successfully`);
 });

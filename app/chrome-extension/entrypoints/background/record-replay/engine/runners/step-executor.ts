@@ -11,59 +11,59 @@
  * - HybridStepExecutor: Tries actions first, falls back to legacy
  */
 
-import type { Step } from '../../types';
-import type { ExecCtx, ExecResult } from '../../nodes/types';
-import { executeStep as legacyExecuteStep } from '../../nodes';
-import type { ActionRegistry } from '../../actions/registry';
+import type {Step} from '../../types';
+import type {ExecCtx, ExecResult} from '../../nodes/types';
+import {executeStep as legacyExecuteStep} from '../../nodes';
+import type {ActionRegistry} from '../../actions/registry';
 import {
-  createStepExecutor,
-  isActionSupported,
-  type StepExecutionAttempt,
+    createStepExecutor,
+    isActionSupported,
+    type StepExecutionAttempt,
 } from '../../actions/adapter';
-import type { ExecutionModeConfig } from '../execution-mode';
-import { shouldUseActions } from '../execution-mode';
+import type {ExecutionModeConfig} from '../execution-mode';
+import {shouldUseActions} from '../execution-mode';
 
 /**
  * Step execution result with additional metadata
  */
 export interface StepExecutionResult {
-  /** The execution result from the step */
-  result: ExecResult;
-  /** Which executor was used */
-  executor: 'legacy' | 'actions';
-  /** Whether fallback was used (only in hybrid mode) */
-  fallback?: boolean;
-  /** Reason for fallback (only when fallback=true) */
-  fallbackReason?: string;
+    /** The execution result from the step */
+    result: ExecResult;
+    /** Which executor was used */
+    executor: 'legacy' | 'actions';
+    /** Whether fallback was used (only in hybrid mode) */
+    fallback?: boolean;
+    /** Reason for fallback (only when fallback=true) */
+    fallbackReason?: string;
 }
 
 /**
  * Options for step execution
  */
 export interface StepExecutionOptions {
-  /** Current tab ID */
-  tabId: number;
-  /** Run ID for logging/tracing */
-  runId?: string;
-  /** Logger for recording fallback information */
-  pushLog?: (entry: unknown) => void;
-  /** Remaining time budget from global deadline */
-  remainingBudgetMs?: number;
+    /** Current tab ID */
+    tabId: number;
+    /** Run ID for logging/tracing */
+    runId?: string;
+    /** Logger for recording fallback information */
+    pushLog?: (entry: unknown) => void;
+    /** Remaining time budget from global deadline */
+    remainingBudgetMs?: number;
 }
 
 /**
  * Base interface for step executors
  */
 export interface StepExecutorInterface {
-  /**
-   * Execute a single step
-   */
-  execute(ctx: ExecCtx, step: Step, options: StepExecutionOptions): Promise<StepExecutionResult>;
+    /**
+     * Execute a single step
+     */
+    execute(ctx: ExecCtx, step: Step, options: StepExecutionOptions): Promise<StepExecutionResult>;
 
-  /**
-   * Check if executor supports a step type
-   */
-  supports(stepType: string): boolean;
+    /**
+     * Check if executor supports a step type
+     */
+    supports(stepType: string): boolean;
 }
 
 /**
@@ -74,25 +74,25 @@ export interface StepExecutorInterface {
  * waiting are handled by StepRunner to maintain existing behavior.
  */
 export class LegacyStepExecutor implements StepExecutorInterface {
-  async execute(
-    ctx: ExecCtx,
-    step: Step,
-    _options: StepExecutionOptions,
-  ): Promise<StepExecutionResult> {
-    // Note: tabId from options is not used here because legacy executeStep
-    // queries the active tab internally. In hybrid/actions mode, tabId is
-    // passed through to ActionRegistry handlers.
-    const result = await legacyExecuteStep(ctx, step);
-    return {
-      result: result || {},
-      executor: 'legacy',
-    };
-  }
+    async execute(
+        ctx: ExecCtx,
+        step: Step,
+        _options: StepExecutionOptions,
+    ): Promise<StepExecutionResult> {
+        // Note: tabId from options is not used here because legacy executeStep
+        // queries the active tab internally. In hybrid/actions mode, tabId is
+        // passed through to ActionRegistry handlers.
+        const result = await legacyExecuteStep(ctx, step);
+        return {
+            result: result || {},
+            executor: 'legacy',
+        };
+    }
 
-  supports(_stepType: string): boolean {
-    // Legacy executor supports all step types via its own registry
-    return true;
-  }
+    supports(_stepType: string): boolean {
+        // Legacy executor supports all step types via its own registry
+        return true;
+    }
 }
 
 /**
@@ -106,47 +106,47 @@ export class LegacyStepExecutor implements StepExecutorInterface {
  * - skipActionsNavWait: Disables handler nav-wait (StepRunner owns nav-wait)
  */
 export class ActionsStepExecutor implements StepExecutorInterface {
-  private executor: ReturnType<typeof createStepExecutor>;
+    private executor: ReturnType<typeof createStepExecutor>;
 
-  constructor(
-    private registry: ActionRegistry,
-    private config: ExecutionModeConfig,
-  ) {
-    this.executor = createStepExecutor(registry);
-  }
-
-  async execute(
-    ctx: ExecCtx,
-    step: Step,
-    options: StepExecutionOptions,
-  ): Promise<StepExecutionResult> {
-    // Use strict=true: throws on unsupported types instead of returning { supported: false }
-    // This ensures all steps must be handled by ActionRegistry in actions-only mode
-    const attempt = (await this.executor(ctx, step, options.tabId, {
-      runId: options.runId,
-      pushLog: options.pushLog,
-      strict: true,
-      // Pass policy skip flags from config (default to true = skip)
-      skipRetry: this.config.skipActionsRetry !== false,
-      skipNavWait: this.config.skipActionsNavWait !== false,
-    })) as StepExecutionAttempt;
-
-    // With strict=true, we should never get { supported: false } - it would throw instead
-    // This check exists for type safety and defensive programming
-    if (!attempt.supported) {
-      throw new Error(attempt.reason);
+    constructor(
+        private registry: ActionRegistry,
+        private config: ExecutionModeConfig,
+    ) {
+        this.executor = createStepExecutor(registry);
     }
 
-    return {
-      result: attempt.result,
-      executor: 'actions',
-    };
-  }
+    async execute(
+        ctx: ExecCtx,
+        step: Step,
+        options: StepExecutionOptions,
+    ): Promise<StepExecutionResult> {
+        // Use strict=true: throws on unsupported types instead of returning { supported: false }
+        // This ensures all steps must be handled by ActionRegistry in actions-only mode
+        const attempt = (await this.executor(ctx, step, options.tabId, {
+            runId: options.runId,
+            pushLog: options.pushLog,
+            strict: true,
+            // Pass policy skip flags from config (default to true = skip)
+            skipRetry: this.config.skipActionsRetry !== false,
+            skipNavWait: this.config.skipActionsNavWait !== false,
+        })) as StepExecutionAttempt;
 
-  supports(stepType: string): boolean {
-    // Use adapter's type guard to check if step type is supported
-    return isActionSupported(stepType);
-  }
+        // With strict=true, we should never get { supported: false } - it would throw instead
+        // This check exists for type safety and defensive programming
+        if (!attempt.supported) {
+            throw new Error(attempt.reason);
+        }
+
+        return {
+            result: attempt.result,
+            executor: 'actions',
+        };
+    }
+
+    supports(stepType: string): boolean {
+        // Use adapter's type guard to check if step type is supported
+        return isActionSupported(stepType);
+    }
 }
 
 /**
@@ -159,98 +159,98 @@ export class ActionsStepExecutor implements StepExecutorInterface {
  * - logFallbacks: Whether to log when falling back to legacy
  */
 export class HybridStepExecutor implements StepExecutorInterface {
-  private actionsExecutor: ReturnType<typeof createStepExecutor>;
+    private actionsExecutor: ReturnType<typeof createStepExecutor>;
 
-  constructor(
-    private registry: ActionRegistry,
-    private config: ExecutionModeConfig,
-  ) {
-    this.actionsExecutor = createStepExecutor(registry);
-  }
-
-  async execute(
-    ctx: ExecCtx,
-    step: Step,
-    options: StepExecutionOptions,
-  ): Promise<StepExecutionResult> {
-    // Check if step should use actions based on config
-    if (!shouldUseActions(step, this.config)) {
-      // Use legacy directly
-      const result = await legacyExecuteStep(ctx, step);
-      return {
-        result: result || {},
-        executor: 'legacy',
-      };
+    constructor(
+        private registry: ActionRegistry,
+        private config: ExecutionModeConfig,
+    ) {
+        this.actionsExecutor = createStepExecutor(registry);
     }
 
-    // Try actions first
-    const attempt = (await this.actionsExecutor(ctx, step, options.tabId, {
-      runId: options.runId,
-      pushLog: options.pushLog,
-      strict: false, // Don't throw on unsupported, return { supported: false }
-      // Pass policy skip flags from config (default to true = skip)
-      skipRetry: this.config.skipActionsRetry !== false,
-      skipNavWait: this.config.skipActionsNavWait !== false,
-    })) as StepExecutionAttempt;
+    async execute(
+        ctx: ExecCtx,
+        step: Step,
+        options: StepExecutionOptions,
+    ): Promise<StepExecutionResult> {
+        // Check if step should use actions based on config
+        if (!shouldUseActions(step, this.config)) {
+            // Use legacy directly
+            const result = await legacyExecuteStep(ctx, step);
+            return {
+                result: result || {},
+                executor: 'legacy',
+            };
+        }
 
-    if (attempt.supported) {
-      return {
-        result: attempt.result,
-        executor: 'actions',
-      };
+        // Try actions first
+        const attempt = (await this.actionsExecutor(ctx, step, options.tabId, {
+            runId: options.runId,
+            pushLog: options.pushLog,
+            strict: false, // Don't throw on unsupported, return { supported: false }
+            // Pass policy skip flags from config (default to true = skip)
+            skipRetry: this.config.skipActionsRetry !== false,
+            skipNavWait: this.config.skipActionsNavWait !== false,
+        })) as StepExecutionAttempt;
+
+        if (attempt.supported) {
+            return {
+                result: attempt.result,
+                executor: 'actions',
+            };
+        }
+
+        // Fall back to legacy
+        if (this.config.logFallbacks) {
+            options.pushLog?.({
+                stepId: step.id,
+                status: 'warning',
+                message: `Falling back to legacy execution: ${attempt.reason}`,
+            });
+        }
+
+        const legacyResult = await legacyExecuteStep(ctx, step);
+        return {
+            result: legacyResult || {},
+            executor: 'legacy',
+            fallback: true,
+            fallbackReason: attempt.reason,
+        };
     }
 
-    // Fall back to legacy
-    if (this.config.logFallbacks) {
-      options.pushLog?.({
-        stepId: step.id,
-        status: 'warning',
-        message: `Falling back to legacy execution: ${attempt.reason}`,
-      });
+    supports(stepType: string): boolean {
+        // Hybrid executor supports all types (via fallback)
+        return true;
     }
-
-    const legacyResult = await legacyExecuteStep(ctx, step);
-    return {
-      result: legacyResult || {},
-      executor: 'legacy',
-      fallback: true,
-      fallbackReason: attempt.reason,
-    };
-  }
-
-  supports(stepType: string): boolean {
-    // Hybrid executor supports all types (via fallback)
-    return true;
-  }
 }
 
 /**
  * Factory function to create the appropriate executor based on config
  */
 export function createExecutor(
-  config: ExecutionModeConfig,
-  registry?: ActionRegistry,
+    config: ExecutionModeConfig,
+    registry?: ActionRegistry,
 ): StepExecutorInterface {
-  switch (config.mode) {
-    case 'legacy':
-      return new LegacyStepExecutor();
+    switch (config.mode) {
+        case 'legacy':
+            return new LegacyStepExecutor();
 
-    case 'actions':
-      if (!registry) {
-        throw new Error('ActionRegistry required for actions execution mode');
-      }
-      return new ActionsStepExecutor(registry, config);
+        case 'actions':
+            if (!registry) {
+                throw new Error('ActionRegistry required for actions execution mode');
+            }
+            return new ActionsStepExecutor(registry, config);
 
-    case 'hybrid':
-      if (!registry) {
-        throw new Error('ActionRegistry required for hybrid execution mode');
-      }
-      return new HybridStepExecutor(registry, config);
+        case 'hybrid':
+            if (!registry) {
+                throw new Error('ActionRegistry required for hybrid execution mode');
+            }
+            return new HybridStepExecutor(registry, config);
 
-    default: {
-      // TypeScript exhaustiveness check
-      const _exhaustive: never = config.mode;
-      throw new Error(`Unknown execution mode: ${_exhaustive}`);
+        default: {
+            // TypeScript exhaustiveness check
+            const _exhaustive: never = config.mode;
+            throw new Error(`Unknown execution mode: ${_exhaustive}`);
+        }
     }
-  }
 }

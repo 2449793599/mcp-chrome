@@ -4,14 +4,14 @@
     <div class="page-header">
       <button class="back-button" @click="$emit('back')" title="返回首页">
         <svg
-          viewBox="0 0 24 24"
-          width="20"
-          height="20"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
         >
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
         </svg>
         <span>返回</span>
       </button>
@@ -35,18 +35,18 @@
           </div>
 
           <ProgressIndicator
-            v-if="isSemanticEngineInitializing"
-            :visible="isSemanticEngineInitializing"
-            :text="semanticEngineInitProgress"
-            :showSpinner="true"
+              v-if="isSemanticEngineInitializing"
+              :visible="isSemanticEngineInitializing"
+              :text="semanticEngineInitProgress"
+              :showSpinner="true"
           />
 
           <button
-            class="primary-action-button"
-            :disabled="isSemanticEngineInitializing"
-            @click="$emit('initializeSemanticEngine')"
+              class="primary-action-button"
+              :disabled="isSemanticEngineInitializing"
+              @click="$emit('initializeSemanticEngine')"
           >
-            <BoltIcon />
+            <BoltIcon/>
             <span>{{ getSemanticEngineButtonText() }}</span>
           </button>
         </div>
@@ -57,10 +57,10 @@
         <h3 class="section-title">{{ getMessage('embeddingModelLabel') }}</h3>
 
         <ProgressIndicator
-          v-if="isModelSwitching || isModelDownloading"
-          :visible="isModelSwitching || isModelDownloading"
-          :text="progressText"
-          :showSpinner="true"
+            v-if="isModelSwitching || isModelDownloading"
+            :visible="isModelSwitching || isModelDownloading"
+            :text="progressText"
+            :showSpinner="true"
         />
 
         <div v-if="modelInitializationStatus === 'error'" class="error-card">
@@ -69,15 +69,15 @@
             <div class="error-details">
               <p class="error-title">{{ getMessage('semanticEngineInitFailedStatus') }}</p>
               <p class="error-message">{{
-                modelErrorMessage || getMessage('semanticEngineInitFailedStatus')
-              }}</p>
+                  modelErrorMessage || getMessage('semanticEngineInitFailedStatus')
+                }}</p>
               <p class="error-suggestion">{{ errorTypeText }}</p>
             </div>
           </div>
           <button
-            class="retry-button"
-            @click="$emit('retryModelInitialization')"
-            :disabled="isModelSwitching || isModelDownloading"
+              class="retry-button"
+              @click="$emit('retryModelInitialization')"
+              :disabled="isModelSwitching || isModelDownloading"
           >
             <span>🔄</span>
             <span>{{ getMessage('retryButton') }}</span>
@@ -86,16 +86,16 @@
 
         <div class="model-list">
           <div
-            v-for="model in availableModels"
-            :key="model.preset"
-            :class="[
+              v-for="model in availableModels"
+              :key="model.preset"
+              :class="[
               'model-card',
               {
                 selected: currentModel === model.preset,
                 disabled: isModelSwitching || isModelDownloading,
               },
             ]"
-            @click="!isModelSwitching && !isModelDownloading && $emit('switchModel', model.preset)"
+              @click="!isModelSwitching && !isModelDownloading && $emit('switchModel', model.preset)"
           >
             <div class="model-header">
               <div class="model-info">
@@ -105,7 +105,7 @@
                 <p class="model-description">{{ getModelDescription(model) }}</p>
               </div>
               <div v-if="currentModel === model.preset" class="check-icon">
-                <CheckIcon class="text-white" />
+                <CheckIcon class="text-white"/>
               </div>
             </div>
             <div class="model-tags">
@@ -125,7 +125,7 @@
             <div class="stats-header">
               <p class="stats-label">{{ getMessage('indexedPagesLabel') }}</p>
               <span class="stats-icon violet">
-                <DocumentIcon />
+                <DocumentIcon/>
               </span>
             </div>
             <p class="stats-value">{{ storageStats?.indexedPages || 0 }}</p>
@@ -135,7 +135,7 @@
             <div class="stats-header">
               <p class="stats-label">{{ getMessage('indexSizeLabel') }}</p>
               <span class="stats-icon teal">
-                <DatabaseIcon />
+                <DatabaseIcon/>
               </span>
             </div>
             <p class="stats-value">{{ formatIndexSize() }}</p>
@@ -145,7 +145,7 @@
             <div class="stats-header">
               <p class="stats-label">{{ getMessage('activeTabsLabel') }}</p>
               <span class="stats-icon blue">
-                <TabIcon />
+                <TabIcon/>
               </span>
             </div>
             <p class="stats-value">{{ storageStats?.totalTabs || 0 }}</p>
@@ -155,7 +155,7 @@
             <div class="stats-header">
               <p class="stats-label">{{ getMessage('vectorDocumentsLabel') }}</p>
               <span class="stats-icon green">
-                <VectorIcon />
+                <VectorIcon/>
               </span>
             </div>
             <p class="stats-value">{{ storageStats?.totalDocuments || 0 }}</p>
@@ -163,38 +163,38 @@
         </div>
 
         <ProgressIndicator
-          v-if="isClearingData && clearDataProgress"
-          :visible="isClearingData"
-          :text="clearDataProgress"
-          :showSpinner="true"
+            v-if="isClearingData && clearDataProgress"
+            :visible="isClearingData"
+            :text="clearDataProgress"
+            :showSpinner="true"
         />
 
         <button
-          class="danger-action-button"
-          :disabled="isClearingData"
-          @click="$emit('showClearConfirmation')"
+            class="danger-action-button"
+            :disabled="isClearingData"
+            @click="$emit('showClearConfirmation')"
         >
-          <TrashIcon />
+          <TrashIcon/>
           <span>{{
-            isClearingData ? getMessage('clearingStatus') : getMessage('clearAllDataButton')
-          }}</span>
+              isClearingData ? getMessage('clearingStatus') : getMessage('clearAllDataButton')
+            }}</span>
         </button>
       </div>
 
       <!-- 模型缓存管理 -->
       <ModelCacheManagement
-        :cache-stats="cacheStats"
-        :is-managing-cache="isManagingCache"
-        @cleanup-cache="$emit('cleanupCache')"
-        @clear-all-cache="$emit('clearAllCache')"
+          :cache-stats="cacheStats"
+          :is-managing-cache="isManagingCache"
+          @cleanup-cache="$emit('cleanupCache')"
+          @clear-all-cache="$emit('clearAllCache')"
       />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
-import { getMessage } from '@/utils/i18n';
+import {computed} from 'vue';
+import {getMessage} from '@/utils/i18n';
 import ProgressIndicator from './ProgressIndicator.vue';
 import ModelCacheManagement from './ModelCacheManagement.vue';
 import {
@@ -440,12 +440,15 @@ const formatIndexSize = () => {
 .status-dot.bg-emerald-500 {
   background-color: #10b981;
 }
+
 .status-dot.bg-yellow-500 {
   background-color: #eab308;
 }
+
 .status-dot.bg-red-500 {
   background-color: #ef4444;
 }
+
 .status-dot.bg-gray-500 {
   background-color: #6b7280;
 }
@@ -649,14 +652,17 @@ const formatIndexSize = () => {
   background: #ede9fe;
   color: #7c3aed;
 }
+
 .stats-icon.teal {
   background: #ccfbf1;
   color: #0d9488;
 }
+
 .stats-icon.blue {
   background: #dbeafe;
   color: #2563eb;
 }
+
 .stats-icon.green {
   background: #dcfce7;
   color: #16a34a;

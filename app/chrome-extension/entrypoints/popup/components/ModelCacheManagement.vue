@@ -8,7 +8,7 @@
         <div class="stats-header">
           <p class="stats-label">{{ getMessage('cacheSizeLabel') }}</p>
           <span class="stats-icon orange">
-            <DatabaseIcon />
+            <DatabaseIcon/>
           </span>
         </div>
         <p class="stats-value">{{ cacheStats?.totalSizeMB || 0 }} MB</p>
@@ -18,7 +18,7 @@
         <div class="stats-header">
           <p class="stats-label">{{ getMessage('cacheEntriesLabel') }}</p>
           <span class="stats-icon purple">
-            <VectorIcon />
+            <VectorIcon/>
           </span>
         </div>
         <p class="stats-value">{{ cacheStats?.entryCount || 0 }}</p>
@@ -54,23 +54,23 @@
 
     <!-- Progress Indicator -->
     <ProgressIndicator
-      v-if="isManagingCache"
-      :visible="isManagingCache"
-      :text="isManagingCache ? getMessage('processingCacheStatus') : ''"
-      :showSpinner="true"
+        v-if="isManagingCache"
+        :visible="isManagingCache"
+        :text="isManagingCache ? getMessage('processingCacheStatus') : ''"
+        :showSpinner="true"
     />
 
     <!-- Action Buttons -->
     <div class="cache-actions">
       <div class="secondary-button" :disabled="isManagingCache" @click="$emit('cleanup-cache')">
-        <span class="stats-icon"><DatabaseIcon /></span>
+        <span class="stats-icon"><DatabaseIcon/></span>
         <span>{{
-          isManagingCache ? getMessage('cleaningStatus') : getMessage('cleanExpiredCacheButton')
-        }}</span>
+            isManagingCache ? getMessage('cleaningStatus') : getMessage('cleanExpiredCacheButton')
+          }}</span>
       </div>
 
       <div class="danger-button" :disabled="isManagingCache" @click="$emit('clear-all-cache')">
-        <span class="stats-icon"><TrashIcon /></span>
+        <span class="stats-icon"><TrashIcon/></span>
         <span>{{ isManagingCache ? getMessage('clearingStatus') : getMessage('clearAllCacheButton') }}</span>
       </div>
     </div>
@@ -79,8 +79,8 @@
 
 <script lang="ts" setup>
 import ProgressIndicator from './ProgressIndicator.vue';
-import { DatabaseIcon, VectorIcon, TrashIcon } from './icons';
-import { getMessage } from '@/utils/i18n';
+import {DatabaseIcon, VectorIcon, TrashIcon} from './icons';
+import {getMessage} from '@/utils/i18n';
 
 interface CacheEntry {
   url: string;
@@ -105,6 +105,7 @@ interface Props {
 
 interface Emits {
   (e: 'cleanup-cache'): void;
+
   (e: 'clear-all-cache'): void;
 }
 

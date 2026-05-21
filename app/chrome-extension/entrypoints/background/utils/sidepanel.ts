@@ -17,43 +17,43 @@
  * Sidepanel availability varies across Chrome versions and contexts.
  */
 export async function openAgentChatSidepanel(
-  tabId: number,
-  windowId?: number,
-  sessionId?: string,
+    tabId: number,
+    windowId?: number,
+    sessionId?: string,
 ): Promise<void> {
-  try {
-    // Build deep-link path with optional session navigation
-    let path = 'sidepanel.html?tab=agent-chat';
-    if (sessionId) {
-      path += `&view=chat&sessionId=${encodeURIComponent(sessionId)}`;
-    }
-
-    // Configure sidepanel options for this tab
-
-    const sidePanel = chrome.sidePanel as any;
-
-    if (sidePanel?.setOptions) {
-      await sidePanel.setOptions({
-        tabId,
-        path,
-        enabled: true,
-      });
-    }
-
-    // Attempt to open the sidepanel
-    if (sidePanel?.open) {
-      try {
-        await sidePanel.open({ tabId });
-      } catch {
-        // Fallback to window-level open if tab-level fails
-        // This handles cases where the tab is in a special state
-        if (typeof windowId === 'number') {
-          await sidePanel.open({ windowId });
+    try {
+        // Build deep-link path with optional session navigation
+        let path = 'sidepanel.html?tab=agent-chat';
+        if (sessionId) {
+            path += `&view=chat&sessionId=${encodeURIComponent(sessionId)}`;
         }
-      }
+
+        // Configure sidepanel options for this tab
+
+        const sidePanel = chrome.sidePanel as any;
+
+        if (sidePanel?.setOptions) {
+            await sidePanel.setOptions({
+                tabId,
+                path,
+                enabled: true,
+            });
+        }
+
+        // Attempt to open the sidepanel
+        if (sidePanel?.open) {
+            try {
+                await sidePanel.open({tabId});
+            } catch {
+                // Fallback to window-level open if tab-level fails
+                // This handles cases where the tab is in a special state
+                if (typeof windowId === 'number') {
+                    await sidePanel.open({windowId});
+                }
+            }
+        }
+    } catch {
+        // Best-effort: side panel may be unavailable in some Chrome versions/environments
+        // Intentionally suppress errors to avoid breaking calling code
     }
-  } catch {
-    // Best-effort: side panel may be unavailable in some Chrome versions/environments
-    // Intentionally suppress errors to avoid breaking calling code
-  }
 }
